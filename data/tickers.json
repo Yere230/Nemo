@@ -7,7 +7,7 @@
     { "nemo": "BSANTANDER", "yahoo": "BSANTANDER.SN", "name": "Banco Santander Chile",             "sector": "Banca",          "category": "accion", "ipsa": true },
     { "nemo": "CAP",        "yahoo": "CAP.SN",        "name": "CAP S.A.",                          "sector": "Minería",        "category": "accion", "ipsa": true },
     { "nemo": "CCU",        "yahoo": "CCU.SN",        "name": "Compañía Cervecerías Unidas",       "sector": "Consumo",        "category": "accion", "ipsa": true },
-    { "nemo": "CENCOSHOPP", "yahoo": "CENCOSHOPP.SN", "name": "Cencosud Shopping",                 "sector": "Real Estate",    "category": "accion", "ipsa": true },
+    { "nemo": "CENCOMALLS", "yahoo": "CENCOMALLS.SN", "name": "Cencosud Shopping (Cenco Malls)", "sector": "Real Estate",    "category": "accion", "ipsa": true },
     { "nemo": "CENCOSUD",   "yahoo": "CENCOSUD.SN",   "name": "Cencosud S.A.",                     "sector": "Retail",         "category": "accion", "ipsa": true },
     { "nemo": "CHILE",      "yahoo": "CHILE.SN",      "name": "Banco de Chile",                    "sector": "Banca",          "category": "accion", "ipsa": true },
     { "nemo": "CMPC",       "yahoo": "CMPC.SN",       "name": "Empresas CMPC",                     "sector": "Materiales",     "category": "accion", "ipsa": true },
