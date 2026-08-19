@@ -1,0 +1,430 @@
+{
+  "lastUpdated": "2026-08-19T02:19:19.551Z",
+  "source": "Yahoo Finance",
+  "totalTickers": 35,
+  "failedCount": 35,
+  "failedTickers": [
+    {
+      "nemo": "AGUAS-A",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "ANDINA-B",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "BCI",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "BSANTANDER",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CAP",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CCU",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CENCOSHOPP",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CENCOSUD",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CHILE",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CMPC",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "COLBUN",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CONCHATORO",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "COPEC",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "ECL",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "ENELAM",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "ENELCHILE",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "ENTEL",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "FALABELLA",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "IAM",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "ILC",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "ITAUCORP",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "LTM",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "MALLPLAZA",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "PARAUCO",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "RIPLEY",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "SALFACORP",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "SMU",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "SONDA",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "SQM-B",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "VAPORES",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "QUINENCO",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CFMITNIPSA",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CFINRENTAS",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CFIETFIPSA",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CFIETFCD",
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    }
+  ],
+  "stocks": [
+    {
+      "nemo": "AGUAS-A",
+      "name": "Aguas Andinas",
+      "sector": "Utilities",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "ANDINA-B",
+      "name": "Embotelladora Andina",
+      "sector": "Consumo",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "BCI",
+      "name": "Banco de Crédito e Inversiones",
+      "sector": "Banca",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "BSANTANDER",
+      "name": "Banco Santander Chile",
+      "sector": "Banca",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CAP",
+      "name": "CAP S.A.",
+      "sector": "Minería",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CCU",
+      "name": "Compañía Cervecerías Unidas",
+      "sector": "Consumo",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CENCOSHOPP",
+      "name": "Cencosud Shopping",
+      "sector": "Real Estate",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CENCOSUD",
+      "name": "Cencosud S.A.",
+      "sector": "Retail",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CHILE",
+      "name": "Banco de Chile",
+      "sector": "Banca",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CMPC",
+      "name": "Empresas CMPC",
+      "sector": "Materiales",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "COLBUN",
+      "name": "Colbún S.A.",
+      "sector": "Utilities",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CONCHATORO",
+      "name": "Viña Concha y Toro",
+      "sector": "Consumo",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "COPEC",
+      "name": "Empresas Copec",
+      "sector": "Energía",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "ECL",
+      "name": "Engie Energía Chile",
+      "sector": "Utilities",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "ENELAM",
+      "name": "Enel Américas",
+      "sector": "Utilities",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "ENELCHILE",
+      "name": "Enel Chile",
+      "sector": "Utilities",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "ENTEL",
+      "name": "Entel Chile",
+      "sector": "Telecom",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "FALABELLA",
+      "name": "S.A.C.I. Falabella",
+      "sector": "Retail",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "IAM",
+      "name": "Inversiones Aguas Metropolitanas",
+      "sector": "Utilities",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "ILC",
+      "name": "Inversiones La Construcción",
+      "sector": "Holding",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "ITAUCORP",
+      "name": "Itaú Corpbanca",
+      "sector": "Banca",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "LTM",
+      "name": "Latam Airlines Group",
+      "sector": "Transporte",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "MALLPLAZA",
+      "name": "Mallplaza",
+      "sector": "Real Estate",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "PARAUCO",
+      "name": "Parque Arauco",
+      "sector": "Real Estate",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "RIPLEY",
+      "name": "Ripley Corp",
+      "sector": "Retail",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "SALFACORP",
+      "name": "SalfaCorp",
+      "sector": "Construcción",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "SMU",
+      "name": "SMU S.A.",
+      "sector": "Retail",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "SONDA",
+      "name": "Sonda S.A.",
+      "sector": "Tecnología",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "SQM-B",
+      "name": "Sociedad Química y Minera",
+      "sector": "Minería",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "VAPORES",
+      "name": "Cía. Sud Americana de Vapores",
+      "sector": "Transporte",
+      "category": "accion",
+      "ipsa": true,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "QUINENCO",
+      "name": "Quiñenco S.A.",
+      "sector": "Holding",
+      "category": "accion",
+      "ipsa": false,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CFMITNIPSA",
+      "name": "Fondo Mutuo ETF IT Now S&P IPSA",
+      "sector": "ETF índice",
+      "category": "fondo",
+      "ipsa": false,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CFINRENTAS",
+      "name": "F.I. Independencia Rentas Inmobiliarias",
+      "sector": "Renta inmobiliaria",
+      "category": "fondo",
+      "ipsa": false,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CFIETFIPSA",
+      "name": "ETF Singular IPSA",
+      "sector": "ETF índice",
+      "category": "fondo",
+      "ipsa": false,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    },
+    {
+      "nemo": "CFIETFCD",
+      "name": "F.I. ETF Singular Chile Corta Duración",
+      "sector": "Renta fija",
+      "category": "fondo",
+      "ipsa": false,
+      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+    }
+  ]
+}
