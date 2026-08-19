@@ -21,7 +21,7 @@
     { "nemo": "FALABELLA",  "yahoo": "FALABELLA.SN",  "name": "S.A.C.I. Falabella",                "sector": "Retail",         "category": "accion", "ipsa": true },
     { "nemo": "IAM",        "yahoo": "IAM.SN",        "name": "Inversiones Aguas Metropolitanas",  "sector": "Utilities",      "category": "accion", "ipsa": true },
     { "nemo": "ILC",        "yahoo": "ILC.SN",        "name": "Inversiones La Construcción",       "sector": "Holding",        "category": "accion", "ipsa": true },
-    { "nemo": "ITAUCORP",   "yahoo": "ITAUCORP.SN",   "name": "Itaú Corpbanca",                    "sector": "Banca",          "category": "accion", "ipsa": true, "verify": true },
+    { "nemo": "ITAUCL",     "yahoo": "ITAUCL.SN",     "name": "Banco Itaú Chile",                  "sector": "Banca",          "category": "accion", "ipsa": true },
     { "nemo": "LTM",        "yahoo": "LTM.SN",        "name": "Latam Airlines Group",              "sector": "Transporte",     "category": "accion", "ipsa": true },
     { "nemo": "MALLPLAZA",  "yahoo": "MALLPLAZA.SN",  "name": "Mallplaza",                         "sector": "Real Estate",    "category": "accion", "ipsa": true },
     { "nemo": "PARAUCO",    "yahoo": "PARAUCO.SN",    "name": "Parque Arauco",                     "sector": "Real Estate",    "category": "accion", "ipsa": true },

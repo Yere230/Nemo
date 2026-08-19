@@ -105,60 +105,73 @@ async function fetchOne(entry) {
     ipsa: entry.ipsa,
   };
 
+  // La cotización (precio) y el resumen (fundamentales) se piden por separado
+  // a propósito: si Yahoo no tiene fundamentales para un ticker (pasa con
+  // algunas empresas chicas) igual queremos guardar el precio en vez de
+  // perder el ticker completo.
+  let quote;
+  try {
+    quote = await yahooFinance.quote(entry.yahoo);
+  } catch (err) {
+    return { ...base, error: err.message || "No se pudo obtener la cotización" };
+  }
+
+  let summary = {};
+  let summaryError = null;
   try {
     const modules =
       entry.category === "accion"
         ? ["summaryDetail", "financialData", "defaultKeyStatistics", "calendarEvents"]
         : ["summaryDetail", "defaultKeyStatistics"];
-
-    const [quote, summary] = await Promise.all([
-      yahooFinance.quote(entry.yahoo),
-      yahooFinance.quoteSummary(entry.yahoo, { modules }),
-    ]);
-
-    const sd = summary.summaryDetail || {};
-    const fd = summary.financialData || {};
-
-    const dividendYieldPct = pct(sd.dividendYield ?? sd.trailingAnnualDividendYield ?? null);
-    const payoutRatioPct = pct(sd.payoutRatio ?? null);
-    const debtToEquity = fd.debtToEquity ?? null; // ya en escala %, no tocar
-    const earningsGrowthPct = pct(fd.earningsGrowth ?? null);
-    const revenueGrowthPct = pct(fd.revenueGrowth ?? null);
-    const roePct = pct(fd.returnOnEquity ?? null);
-
-    let scoreDividendo, scoreCrecimiento;
-    if (entry.category === "accion") {
-      scoreDividendo = scoreDividendoAccion({ dividendYieldPct, payoutRatioPct, debtToEquity });
-      scoreCrecimiento = scoreCrecimientoAccion({ earningsGrowthPct, revenueGrowthPct, roePct });
-    } else {
-      scoreDividendo = scoreDividendoFondo({ dividendYieldPct });
-      scoreCrecimiento = null; // no aplica a fondos/ETF en v1
-    }
-
-    return {
-      ...base,
-      price: quote.regularMarketPrice ?? null,
-      currency: quote.currency ?? sd.currency ?? "CLP",
-      change: quote.regularMarketChangePercent ?? null,
-      dividendYieldPct,
-      payoutRatioPct,
-      debtToEquity,
-      earningsGrowthPct,
-      revenueGrowthPct,
-      roePct,
-      fiftyTwoWeekLow: sd.fiftyTwoWeekLow ?? null,
-      fiftyTwoWeekHigh: sd.fiftyTwoWeekHigh ?? null,
-      exDividendDate: sd.exDividendDate ?? null,
-      scoreDividendo,
-      scoreCrecimiento,
-      error: null,
-    };
+    summary = await yahooFinance.quoteSummary(entry.yahoo, { modules });
   } catch (err) {
-    return {
-      ...base,
-      error: err.message || "Error desconocido al consultar Yahoo Finance",
-    };
+    summaryError = err.message || "No se pudieron obtener los fundamentales";
   }
+
+  const sd = summary.summaryDetail || {};
+  const fd = summary.financialData || {};
+  const ks = summary.defaultKeyStatistics || {};
+
+  // Para acciones, Yahoo usa "dividendYield". Para fondos/ETF muchas veces
+  // ese campo viene vacío y el dato real está en "yield" (defaultKeyStatistics
+  // o summaryDetail, según el instrumento) — probamos ambos.
+  const dividendYieldPct = pct(
+    sd.dividendYield ?? sd.trailingAnnualDividendYield ?? sd.yield ?? ks.yield ?? null
+  );
+  const payoutRatioPct = pct(sd.payoutRatio ?? null);
+  const debtToEquity = fd.debtToEquity ?? null; // ya en escala %, no tocar
+  const earningsGrowthPct = pct(fd.earningsGrowth ?? null);
+  const revenueGrowthPct = pct(fd.revenueGrowth ?? null);
+  const roePct = pct(fd.returnOnEquity ?? null);
+
+  let scoreDividendo, scoreCrecimiento;
+  if (entry.category === "accion") {
+    scoreDividendo = scoreDividendoAccion({ dividendYieldPct, payoutRatioPct, debtToEquity });
+    scoreCrecimiento = scoreCrecimientoAccion({ earningsGrowthPct, revenueGrowthPct, roePct });
+  } else {
+    scoreDividendo = scoreDividendoFondo({ dividendYieldPct });
+    scoreCrecimiento = null; // no aplica a fondos/ETF en v1
+  }
+
+  return {
+    ...base,
+    price: quote.regularMarketPrice ?? null,
+    currency: quote.currency ?? sd.currency ?? "CLP",
+    change: quote.regularMarketChangePercent ?? null,
+    dividendYieldPct,
+    payoutRatioPct,
+    debtToEquity,
+    earningsGrowthPct,
+    revenueGrowthPct,
+    roePct,
+    fiftyTwoWeekLow: sd.fiftyTwoWeekLow ?? null,
+    fiftyTwoWeekHigh: sd.fiftyTwoWeekHigh ?? null,
+    exDividendDate: sd.exDividendDate ?? null,
+    scoreDividendo,
+    scoreCrecimiento,
+    fundamentalsWarning: summaryError, // no es un error fatal, solo un aviso
+    error: null,
+  };
 }
 
 async function main() {

@@ -35,6 +35,10 @@ const fakeResponses = {
       financialData: {},
     },
   },
+  "CENCOSHOPP.SN": {
+    quote: { regularMarketPrice: 1500, currency: "CLP", regularMarketChangePercent: 0.5 },
+    summary: null, // simula que Yahoo no tiene fundamentales, solo precio
+  },
   "ITAUCORP.SN": null, // simula un ticker que falla, como advertimos que podría pasar
 };
 
@@ -47,6 +51,7 @@ class FakeYahooFinance {
   async quoteSummary(symbol) {
     const fake = fakeResponses[symbol];
     if (!fake) throw new Error("Quote not found (símbolo simulado no existe)");
+    if (!fake.summary) throw new Error("No fundamentals data found (simulado)");
     return fake.summary;
   }
 }
@@ -86,6 +91,17 @@ async function run() {
   console.log("\nCFINRENTAS (fondo, scoreCrecimiento debe ser null):");
   console.log(JSON.stringify(fondo, null, 2));
 
+  const cencoshopp = await fetchOne({
+    nemo: "CENCOSHOPP",
+    yahoo: "CENCOSHOPP.SN",
+    name: "Cencosud Shopping",
+    sector: "Real Estate",
+    category: "accion",
+    ipsa: true,
+  });
+  console.log("\nCENCOSHOPP (precio OK, fundamentales fallan — debe conservar el precio):");
+  console.log(JSON.stringify(cencoshopp, null, 2));
+
   const roto = await fetchOne({
     nemo: "ITAUCORP",
     yahoo: "ITAUCORP.SN",
@@ -107,6 +123,9 @@ async function run() {
     ["Fondo NO tiene scoreCrecimiento (null)", fondo.scoreCrecimiento === null],
     ["Ticker roto no lanza excepción y queda con error", typeof roto.error === "string"],
     ["Ticker roto no tiene score", roto.scoreDividendo === undefined],
+    ["CENCOSHOPP conserva el precio aunque fallen los fundamentales", cencoshopp.price === 1500],
+    ["CENCOSHOPP no tiene error fatal (error: null)", cencoshopp.error === null],
+    ["CENCOSHOPP queda con fundamentalsWarning avisando el problema", typeof cencoshopp.fundamentalsWarning === "string"],
   ];
 
   console.log("\n=== Resultado de checks ===");
