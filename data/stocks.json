@@ -1,148 +1,16 @@
 {
-  "lastUpdated": "2026-08-19T02:19:19.551Z",
+  "lastUpdated": "2026-08-19T02:27:44.595Z",
   "source": "Yahoo Finance",
   "totalTickers": 35,
-  "failedCount": 35,
+  "failedCount": 2,
   "failedTickers": [
     {
-      "nemo": "AGUAS-A",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "ANDINA-B",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "BCI",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "BSANTANDER",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "CAP",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "CCU",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
       "nemo": "CENCOSHOPP",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "CENCOSUD",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "CHILE",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "CMPC",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "COLBUN",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "CONCHATORO",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "COPEC",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "ECL",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "ENELAM",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "ENELCHILE",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "ENTEL",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "FALABELLA",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "IAM",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "ILC",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "error": "No fundamentals data found for symbol: CENCOSHOPP.SN"
     },
     {
       "nemo": "ITAUCORP",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "LTM",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "MALLPLAZA",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "PARAUCO",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "RIPLEY",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "SALFACORP",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "SMU",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "SONDA",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "SQM-B",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "VAPORES",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "QUINENCO",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "CFMITNIPSA",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "CFINRENTAS",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "CFIETFIPSA",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
-    },
-    {
-      "nemo": "CFIETFCD",
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "error": "Quote not found for symbol: ITAUCORP.SN"
     }
   ],
   "stocks": [
@@ -152,7 +20,21 @@
       "sector": "Utilities",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 332.51,
+      "currency": "CLP",
+      "change": -1.1857326,
+      "dividendYieldPct": 5.16,
+      "payoutRatioPct": 59.91,
+      "debtToEquity": 102.76,
+      "earningsGrowthPct": 22.1,
+      "revenueGrowthPct": 6.6,
+      "roePct": 11.09,
+      "fiftyTwoWeekLow": 310.11,
+      "fiftyTwoWeekHigh": 400,
+      "exDividendDate": "2026-04-27T00:00:00.000Z",
+      "scoreDividendo": 6.2,
+      "scoreCrecimiento": 5.5,
+      "error": null
     },
     {
       "nemo": "ANDINA-B",
@@ -160,7 +42,21 @@
       "sector": "Consumo",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 4675,
+      "currency": "CLP",
+      "change": -0.63761955,
+      "dividendYieldPct": 3.09,
+      "payoutRatioPct": 30.57,
+      "debtToEquity": 86.426,
+      "earningsGrowthPct": 0.1,
+      "revenueGrowthPct": 11.1,
+      "roePct": 23.75,
+      "fiftyTwoWeekLow": 3541,
+      "fiftyTwoWeekHigh": 4800,
+      "exDividendDate": "2026-08-24T00:00:00.000Z",
+      "scoreDividendo": 6.3,
+      "scoreCrecimiento": 5.9,
+      "error": null
     },
     {
       "nemo": "BCI",
@@ -168,7 +64,21 @@
       "sector": "Banca",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 67800,
+      "currency": "CLP",
+      "change": 2.1084337,
+      "dividendYieldPct": 2.4,
+      "payoutRatioPct": 29.6,
+      "debtToEquity": null,
+      "earningsGrowthPct": 37.6,
+      "revenueGrowthPct": 22.2,
+      "roePct": 14.73,
+      "fiftyTwoWeekLow": 38100,
+      "fiftyTwoWeekHigh": 67897,
+      "exDividendDate": "2026-04-02T00:00:00.000Z",
+      "scoreDividendo": 4.1,
+      "scoreCrecimiento": 6.9,
+      "error": null
     },
     {
       "nemo": "BSANTANDER",
@@ -176,7 +86,21 @@
       "sector": "Banca",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 79.71,
+      "currency": "CLP",
+      "change": 0.2767659,
+      "dividendYieldPct": 4.35,
+      "payoutRatioPct": 56.07,
+      "debtToEquity": null,
+      "earningsGrowthPct": 40,
+      "revenueGrowthPct": 20.2,
+      "roePct": 23.59,
+      "fiftyTwoWeekLow": 56.5,
+      "fiftyTwoWeekHigh": 80.68,
+      "exDividendDate": "2026-04-30T00:00:00.000Z",
+      "scoreDividendo": 6.2,
+      "scoreCrecimiento": 7.7,
+      "error": null
     },
     {
       "nemo": "CAP",
@@ -184,7 +108,21 @@
       "sector": "Minería",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 5319,
+      "currency": "CLP",
+      "change": -0.9497207,
+      "dividendYieldPct": 0,
+      "payoutRatioPct": 0,
+      "debtToEquity": 59.728,
+      "earningsGrowthPct": null,
+      "revenueGrowthPct": 14.2,
+      "roePct": -3.26,
+      "fiftyTwoWeekLow": 4749,
+      "fiftyTwoWeekHigh": 8680,
+      "exDividendDate": "2023-04-20T00:00:00.000Z",
+      "scoreDividendo": 2.8,
+      "scoreCrecimiento": 3.9,
+      "error": null
     },
     {
       "nemo": "CCU",
@@ -192,7 +130,21 @@
       "sector": "Consumo",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 5354.5,
+      "currency": "CLP",
+      "change": -0.621752,
+      "dividendYieldPct": 1.82,
+      "payoutRatioPct": 33.88,
+      "debtToEquity": 82.488,
+      "earningsGrowthPct": null,
+      "revenueGrowthPct": 4.8,
+      "roePct": 7.94,
+      "fiftyTwoWeekLow": 4947,
+      "fiftyTwoWeekHigh": 6598.3,
+      "exDividendDate": "2026-04-20T00:00:00.000Z",
+      "scoreDividendo": 5.9,
+      "scoreCrecimiento": 4.3,
+      "error": null
     },
     {
       "nemo": "CENCOSHOPP",
@@ -200,7 +152,7 @@
       "sector": "Real Estate",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "error": "No fundamentals data found for symbol: CENCOSHOPP.SN"
     },
     {
       "nemo": "CENCOSUD",
@@ -208,7 +160,21 @@
       "sector": "Retail",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 1950,
+      "currency": "CLP",
+      "change": 0.30864197,
+      "dividendYieldPct": 1.25,
+      "payoutRatioPct": 44.17,
+      "debtToEquity": 99.365,
+      "earningsGrowthPct": null,
+      "revenueGrowthPct": -1.8,
+      "roePct": 4.61,
+      "fiftyTwoWeekLow": 1931,
+      "fiftyTwoWeekHigh": 3238,
+      "exDividendDate": "2026-05-08T00:00:00.000Z",
+      "scoreDividendo": 5.7,
+      "scoreCrecimiento": 3.8,
+      "error": null
     },
     {
       "nemo": "CHILE",
@@ -216,7 +182,21 @@
       "sector": "Banca",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 191.6,
+      "currency": "CLP",
+      "change": 1.6445656,
+      "dividendYieldPct": 5.3,
+      "payoutRatioPct": 83.44,
+      "debtToEquity": null,
+      "earningsGrowthPct": 28.6,
+      "revenueGrowthPct": 13.6,
+      "roePct": 21.58,
+      "fiftyTwoWeekLow": 136.91,
+      "fiftyTwoWeekHigh": 200.68,
+      "exDividendDate": "2026-03-20T00:00:00.000Z",
+      "scoreDividendo": 5.1,
+      "scoreCrecimiento": 6.9,
+      "error": null
     },
     {
       "nemo": "CMPC",
@@ -224,7 +204,21 @@
       "sector": "Materiales",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 1025,
+      "currency": "CLP",
+      "change": -1.2524085,
+      "dividendYieldPct": 0.89,
+      "payoutRatioPct": 25.02,
+      "debtToEquity": 62.925,
+      "earningsGrowthPct": -89.2,
+      "revenueGrowthPct": 0.5,
+      "roePct": 1.14,
+      "fiftyTwoWeekLow": 1015,
+      "fiftyTwoWeekHigh": 1599,
+      "exDividendDate": "2026-05-07T00:00:00.000Z",
+      "scoreDividendo": 4.1,
+      "scoreCrecimiento": 1.6,
+      "error": null
     },
     {
       "nemo": "COLBUN",
@@ -232,7 +226,21 @@
       "sector": "Utilities",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 140,
+      "currency": "CLP",
+      "change": 0,
+      "dividendYieldPct": 3.61,
+      "payoutRatioPct": 74.89,
+      "debtToEquity": 73.714,
+      "earningsGrowthPct": -17.4,
+      "revenueGrowthPct": 11.6,
+      "roePct": 3.51,
+      "fiftyTwoWeekLow": 123.55,
+      "fiftyTwoWeekHigh": 156.51,
+      "exDividendDate": "2026-05-11T00:00:00.000Z",
+      "scoreDividendo": 6.5,
+      "scoreCrecimiento": 3.5,
+      "error": null
     },
     {
       "nemo": "CONCHATORO",
@@ -240,7 +248,21 @@
       "sector": "Consumo",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 861,
+      "currency": "CLP",
+      "change": 0.024398748,
+      "dividendYieldPct": 5.34,
+      "payoutRatioPct": 53.24,
+      "debtToEquity": 70.176,
+      "earningsGrowthPct": 6.1,
+      "revenueGrowthPct": -4.7,
+      "roePct": 7.63,
+      "fiftyTwoWeekLow": 815,
+      "fiftyTwoWeekHigh": 1152.4,
+      "exDividendDate": "2026-05-11T00:00:00.000Z",
+      "scoreDividendo": 7,
+      "scoreCrecimiento": 4.3,
+      "error": null
     },
     {
       "nemo": "COPEC",
@@ -248,7 +270,21 @@
       "sector": "Energía",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 6011,
+      "currency": "CLP",
+      "change": -1.797092,
+      "dividendYieldPct": 2.87,
+      "payoutRatioPct": 29.47,
+      "debtToEquity": 88.65,
+      "earningsGrowthPct": 92.6,
+      "revenueGrowthPct": 28.8,
+      "roePct": 8.36,
+      "fiftyTwoWeekLow": 5702.1,
+      "fiftyTwoWeekHigh": 7949,
+      "exDividendDate": "2026-05-08T00:00:00.000Z",
+      "scoreDividendo": 4.8,
+      "scoreCrecimiento": 7.1,
+      "error": null
     },
     {
       "nemo": "ECL",
@@ -256,7 +292,21 @@
       "sector": "Utilities",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 1825,
+      "currency": "CLP",
+      "change": -2.8066225,
+      "dividendYieldPct": 3.14,
+      "payoutRatioPct": 27.48,
+      "debtToEquity": 138.56,
+      "earningsGrowthPct": -19.5,
+      "revenueGrowthPct": -10.4,
+      "roePct": 13.18,
+      "fiftyTwoWeekLow": 1172.5,
+      "fiftyTwoWeekHigh": 1879.9,
+      "exDividendDate": "2026-05-22T00:00:00.000Z",
+      "scoreDividendo": 4.1,
+      "scoreCrecimiento": 3.5,
+      "error": null
     },
     {
       "nemo": "ENELAM",
@@ -264,7 +314,21 @@
       "sector": "Utilities",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 87,
+      "currency": "CLP",
+      "change": -0.34364608,
+      "dividendYieldPct": 2.98,
+      "payoutRatioPct": 28.03,
+      "debtToEquity": 39.321,
+      "earningsGrowthPct": 36.8,
+      "revenueGrowthPct": 22.7,
+      "roePct": 7.61,
+      "fiftyTwoWeekLow": 73.95,
+      "fiftyTwoWeekHigh": 105.23,
+      "exDividendDate": "2026-05-15T00:00:00.000Z",
+      "scoreDividendo": 5.6,
+      "scoreCrecimiento": 6.3,
+      "error": null
     },
     {
       "nemo": "ENELCHILE",
@@ -272,7 +336,21 @@
       "sector": "Utilities",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 82.5,
+      "currency": "CLP",
+      "change": -0.6024096,
+      "dividendYieldPct": 4.29,
+      "payoutRatioPct": 47.99,
+      "debtToEquity": 66.905,
+      "earningsGrowthPct": 53.7,
+      "revenueGrowthPct": -11.3,
+      "roePct": 11,
+      "fiftyTwoWeekLow": 65.7,
+      "fiftyTwoWeekHigh": 86.3,
+      "exDividendDate": "2026-05-15T00:00:00.000Z",
+      "scoreDividendo": 6.7,
+      "scoreCrecimiento": 6.1,
+      "error": null
     },
     {
       "nemo": "ENTEL",
@@ -280,7 +358,21 @@
       "sector": "Telecom",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 3710,
+      "currency": "CLP",
+      "change": -1.591512,
+      "dividendYieldPct": 7,
+      "payoutRatioPct": 37.85,
+      "debtToEquity": 118.617,
+      "earningsGrowthPct": 39.4,
+      "revenueGrowthPct": 7.3,
+      "roePct": 10.63,
+      "fiftyTwoWeekLow": 3135.1,
+      "fiftyTwoWeekHigh": 5250,
+      "exDividendDate": "2026-04-27T00:00:00.000Z",
+      "scoreDividendo": 6.8,
+      "scoreCrecimiento": 6.2,
+      "error": null
     },
     {
       "nemo": "FALABELLA",
@@ -288,7 +380,21 @@
       "sector": "Retail",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 6314,
+      "currency": "CLP",
+      "change": 1.0239999,
+      "dividendYieldPct": 1.68,
+      "payoutRatioPct": 18.5,
+      "debtToEquity": 53.366,
+      "earningsGrowthPct": -16.6,
+      "revenueGrowthPct": 9.8,
+      "roePct": 19.02,
+      "fiftyTwoWeekLow": 5237.7,
+      "fiftyTwoWeekHigh": 6948.5,
+      "exDividendDate": "2026-03-27T00:00:00.000Z",
+      "scoreDividendo": 4.4,
+      "scoreCrecimiento": 4.8,
+      "error": null
     },
     {
       "nemo": "IAM",
@@ -296,7 +402,21 @@
       "sector": "Utilities",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 925,
+      "currency": "CLP",
+      "change": -2.631579,
+      "dividendYieldPct": 5.4,
+      "payoutRatioPct": 58.93,
+      "debtToEquity": 85.927,
+      "earningsGrowthPct": 22.3,
+      "revenueGrowthPct": 6.6,
+      "roePct": 9.13,
+      "fiftyTwoWeekLow": 841.5,
+      "fiftyTwoWeekHigh": 1150,
+      "exDividendDate": "2026-04-30T00:00:00.000Z",
+      "scoreDividendo": 7.1,
+      "scoreCrecimiento": 5.4,
+      "error": null
     },
     {
       "nemo": "ILC",
@@ -304,7 +424,21 @@
       "sector": "Holding",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 24349,
+      "currency": "CLP",
+      "change": -1.2811676,
+      "dividendYieldPct": 4,
+      "payoutRatioPct": 13.3,
+      "debtToEquity": 244.119,
+      "earningsGrowthPct": 127.4,
+      "revenueGrowthPct": 13.6,
+      "roePct": 25.41,
+      "fiftyTwoWeekLow": 11250,
+      "fiftyTwoWeekHigh": 24799,
+      "exDividendDate": "2026-05-22T00:00:00.000Z",
+      "scoreDividendo": 3.9,
+      "scoreCrecimiento": 8.1,
+      "error": null
     },
     {
       "nemo": "ITAUCORP",
@@ -312,7 +446,7 @@
       "sector": "Banca",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "error": "Quote not found for symbol: ITAUCORP.SN"
     },
     {
       "nemo": "LTM",
@@ -320,7 +454,21 @@
       "sector": "Transporte",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 23.65,
+      "currency": "CLP",
+      "change": -1.2938209,
+      "dividendYieldPct": 2.8,
+      "payoutRatioPct": 28.17,
+      "debtToEquity": 454.527,
+      "earningsGrowthPct": -46.2,
+      "revenueGrowthPct": 27.2,
+      "roePct": 107.99,
+      "fiftyTwoWeekLow": 20.01,
+      "fiftyTwoWeekHigh": 30,
+      "exDividendDate": "2026-05-08T00:00:00.000Z",
+      "scoreDividendo": 3.5,
+      "scoreCrecimiento": 5.5,
+      "error": null
     },
     {
       "nemo": "MALLPLAZA",
@@ -328,7 +476,21 @@
       "sector": "Real Estate",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 4120,
+      "currency": "CLP",
+      "change": 3,
+      "dividendYieldPct": 2.03,
+      "payoutRatioPct": 11.84,
+      "debtToEquity": 34.124,
+      "earningsGrowthPct": -44.5,
+      "revenueGrowthPct": 8.7,
+      "roePct": 29.73,
+      "fiftyTwoWeekLow": 2220,
+      "fiftyTwoWeekHigh": 4700,
+      "exDividendDate": "2026-03-30T00:00:00.000Z",
+      "scoreDividendo": 5.3,
+      "scoreCrecimiento": 4.5,
+      "error": null
     },
     {
       "nemo": "PARAUCO",
@@ -336,7 +498,21 @@
       "sector": "Real Estate",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 4066.1,
+      "currency": "CLP",
+      "change": -0.09336359,
+      "dividendYieldPct": 1.46,
+      "payoutRatioPct": 19.67,
+      "debtToEquity": 80.955,
+      "earningsGrowthPct": -31.5,
+      "revenueGrowthPct": 15.7,
+      "roePct": 10.57,
+      "fiftyTwoWeekLow": 2092.4,
+      "fiftyTwoWeekHigh": 4596.3,
+      "exDividendDate": "2026-04-24T00:00:00.000Z",
+      "scoreDividendo": 4.3,
+      "scoreCrecimiento": 3.6,
+      "error": null
     },
     {
       "nemo": "RIPLEY",
@@ -344,7 +520,21 @@
       "sector": "Retail",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 403.99,
+      "currency": "CLP",
+      "change": -0.24938513,
+      "dividendYieldPct": 3.43,
+      "payoutRatioPct": 10.65,
+      "debtToEquity": 201.071,
+      "earningsGrowthPct": -36.3,
+      "revenueGrowthPct": 2.3,
+      "roePct": 10.27,
+      "fiftyTwoWeekLow": 350,
+      "fiftyTwoWeekHigh": 490,
+      "exDividendDate": "2026-05-22T00:00:00.000Z",
+      "scoreDividendo": 3.7,
+      "scoreCrecimiento": 3,
+      "error": null
     },
     {
       "nemo": "SALFACORP",
@@ -352,7 +542,21 @@
       "sector": "Construcción",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 1275,
+      "currency": "CLP",
+      "change": -1.7870862,
+      "dividendYieldPct": 2.21,
+      "payoutRatioPct": 25.23,
+      "debtToEquity": 114.826,
+      "earningsGrowthPct": 5.4,
+      "revenueGrowthPct": -1.6,
+      "roePct": 9.46,
+      "fiftyTwoWeekLow": 800,
+      "fiftyTwoWeekHigh": 1499.9,
+      "exDividendDate": "2026-04-20T00:00:00.000Z",
+      "scoreDividendo": 3.8,
+      "scoreCrecimiento": 4.5,
+      "error": null
     },
     {
       "nemo": "SMU",
@@ -360,7 +564,21 @@
       "sector": "Retail",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 123,
+      "currency": "CLP",
+      "change": 0.8196721,
+      "dividendYieldPct": 5.02,
+      "payoutRatioPct": 78.75,
+      "debtToEquity": 160.8,
+      "earningsGrowthPct": -91.5,
+      "revenueGrowthPct": 2.2,
+      "roePct": 5.61,
+      "fiftyTwoWeekLow": 121.15,
+      "fiftyTwoWeekHigh": 169.5,
+      "exDividendDate": "2026-08-28T00:00:00.000Z",
+      "scoreDividendo": 4.8,
+      "scoreCrecimiento": 2,
+      "error": null
     },
     {
       "nemo": "SONDA",
@@ -368,7 +586,21 @@
       "sector": "Tecnología",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 299,
+      "currency": "CLP",
+      "change": -0.33333334,
+      "dividendYieldPct": 1.89,
+      "payoutRatioPct": 23.02,
+      "debtToEquity": 70.632,
+      "earningsGrowthPct": null,
+      "revenueGrowthPct": 9.4,
+      "roePct": 3.75,
+      "fiftyTwoWeekLow": 272,
+      "fiftyTwoWeekHigh": 383.7,
+      "exDividendDate": "2026-04-20T00:00:00.000Z",
+      "scoreDividendo": 4.5,
+      "scoreCrecimiento": 4.1,
+      "error": null
     },
     {
       "nemo": "SQM-B",
@@ -376,7 +608,21 @@
       "sector": "Minería",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 69171,
+      "currency": "CLP",
+      "change": 0.5392442,
+      "dividendYieldPct": 1.4,
+      "payoutRatioPct": 0,
+      "debtToEquity": 63.386,
+      "earningsGrowthPct": 165.2,
+      "revenueGrowthPct": 69.8,
+      "roePct": 13.4,
+      "fiftyTwoWeekLow": 39150,
+      "fiftyTwoWeekHigh": 86900,
+      "exDividendDate": "2026-05-11T00:00:00.000Z",
+      "scoreDividendo": 3.3,
+      "scoreCrecimiento": 8.1,
+      "error": null
     },
     {
       "nemo": "VAPORES",
@@ -384,7 +630,21 @@
       "sector": "Transporte",
       "category": "accion",
       "ipsa": true,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 48.4,
+      "currency": "CLP",
+      "change": -0.61601484,
+      "dividendYieldPct": 24.98,
+      "payoutRatioPct": 190.26,
+      "debtToEquity": 0.015,
+      "earningsGrowthPct": null,
+      "revenueGrowthPct": null,
+      "roePct": -0.27,
+      "fiftyTwoWeekLow": 42,
+      "fiftyTwoWeekHigh": 55,
+      "exDividendDate": "2026-06-01T00:00:00.000Z",
+      "scoreDividendo": 7.2,
+      "scoreCrecimiento": 3.5,
+      "error": null
     },
     {
       "nemo": "QUINENCO",
@@ -392,7 +652,21 @@
       "sector": "Holding",
       "category": "accion",
       "ipsa": false,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 4548.1,
+      "currency": "CLP",
+      "change": 1.068891,
+      "dividendYieldPct": 2.87,
+      "payoutRatioPct": 74.11,
+      "debtToEquity": 101.524,
+      "earningsGrowthPct": -2.8,
+      "revenueGrowthPct": 1.7,
+      "roePct": 9.28,
+      "fiftyTwoWeekLow": 3501,
+      "fiftyTwoWeekHigh": 4750,
+      "exDividendDate": "2026-05-11T00:00:00.000Z",
+      "scoreDividendo": 5.5,
+      "scoreCrecimiento": 4.2,
+      "error": null
     },
     {
       "nemo": "CFMITNIPSA",
@@ -400,7 +674,21 @@
       "sector": "ETF índice",
       "category": "fondo",
       "ipsa": false,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 5137.9,
+      "currency": "CLP",
+      "change": 0.124717966,
+      "dividendYieldPct": 0,
+      "payoutRatioPct": null,
+      "debtToEquity": null,
+      "earningsGrowthPct": null,
+      "revenueGrowthPct": null,
+      "roePct": null,
+      "fiftyTwoWeekLow": 4160,
+      "fiftyTwoWeekHigh": 5588.4,
+      "exDividendDate": null,
+      "scoreDividendo": 0,
+      "scoreCrecimiento": null,
+      "error": null
     },
     {
       "nemo": "CFINRENTAS",
@@ -408,7 +696,21 @@
       "sector": "Renta inmobiliaria",
       "category": "fondo",
       "ipsa": false,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 2161.831,
+      "currency": "CLP",
+      "change": -0.3722682,
+      "dividendYieldPct": 0,
+      "payoutRatioPct": null,
+      "debtToEquity": null,
+      "earningsGrowthPct": null,
+      "revenueGrowthPct": null,
+      "roePct": null,
+      "fiftyTwoWeekLow": 1615,
+      "fiftyTwoWeekHigh": 2340,
+      "exDividendDate": null,
+      "scoreDividendo": 0,
+      "scoreCrecimiento": null,
+      "error": null
     },
     {
       "nemo": "CFIETFIPSA",
@@ -416,7 +718,21 @@
       "sector": "ETF índice",
       "category": "fondo",
       "ipsa": false,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 1359.8,
+      "currency": "CLP",
+      "change": 0.87537456,
+      "dividendYieldPct": 0,
+      "payoutRatioPct": null,
+      "debtToEquity": null,
+      "earningsGrowthPct": null,
+      "revenueGrowthPct": null,
+      "roePct": null,
+      "fiftyTwoWeekLow": 1337,
+      "fiftyTwoWeekHigh": 1359.8,
+      "exDividendDate": null,
+      "scoreDividendo": 0,
+      "scoreCrecimiento": null,
+      "error": null
     },
     {
       "nemo": "CFIETFCD",
@@ -424,7 +740,21 @@
       "sector": "Renta fija",
       "category": "fondo",
       "ipsa": false,
-      "error": "Call `const yahooFinance = new YahooFinance()` first.  Upgrading from v2?  See https://github.com/gadicc/yahoo-finance2/blob/dev/docs/UPGRADING.md."
+      "price": 1270.1,
+      "currency": "CLP",
+      "change": 0.06302109,
+      "dividendYieldPct": 0,
+      "payoutRatioPct": null,
+      "debtToEquity": null,
+      "earningsGrowthPct": null,
+      "revenueGrowthPct": null,
+      "roePct": null,
+      "fiftyTwoWeekLow": 1235,
+      "fiftyTwoWeekHigh": 1300,
+      "exDividendDate": null,
+      "scoreDividendo": 0,
+      "scoreCrecimiento": null,
+      "error": null
     }
   ]
 }
