@@ -38,22 +38,22 @@ const fakeResponses = {
   "ITAUCORP.SN": null, // simula un ticker que falla, como advertimos que podría pasar
 };
 
+class FakeYahooFinance {
+  async quote(symbol) {
+    const fake = fakeResponses[symbol];
+    if (!fake) throw new Error("Quote not found (símbolo simulado no existe)");
+    return fake.quote;
+  }
+  async quoteSummary(symbol) {
+    const fake = fakeResponses[symbol];
+    if (!fake) throw new Error("Quote not found (símbolo simulado no existe)");
+    return fake.summary;
+  }
+}
+
 Module.prototype.require = function (id) {
   if (id === "yahoo-finance2") {
-    return {
-      default: {
-        quote: async (symbol) => {
-          const fake = fakeResponses[symbol];
-          if (!fake) throw new Error("Quote not found (símbolo simulado no existe)");
-          return fake.quote;
-        },
-        quoteSummary: async (symbol) => {
-          const fake = fakeResponses[symbol];
-          if (!fake) throw new Error("Quote not found (símbolo simulado no existe)");
-          return fake.summary;
-        },
-      },
-    };
+    return { default: FakeYahooFinance };
   }
   return originalRequire.apply(this, arguments);
 };

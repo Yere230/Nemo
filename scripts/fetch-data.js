@@ -21,7 +21,8 @@
 
 const fs = require("fs");
 const path = require("path");
-const yahooFinance = require("yahoo-finance2").default;
+const YahooFinance = require("yahoo-finance2").default;
+const yahooFinance = new YahooFinance();
 
 const SCALE_FRACTION_FIELDS = true; // ver nota arriba
 const TICKERS_PATH = path.join(__dirname, "..", "data", "tickers.json");
