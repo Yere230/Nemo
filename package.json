@@ -1,0 +1,14 @@
+{
+  "name": "nemo",
+  "version": "1.0.0",
+  "description": "Bitácora personal de dividendos e inversión — Bolsa de Santiago",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "fetch-data": "node scripts/fetch-data.js",
+    "test": "node scripts/test-scoring.js && node scripts/test-pipeline.js"
+  },
+  "dependencies": {
+    "yahoo-finance2": "^4.0.2"
+  }
+}

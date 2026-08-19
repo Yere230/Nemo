@@ -1,0 +1,37 @@
+name: Actualizar datos de mercado
+
+on:
+  schedule:
+    # 21:00 UTC = 17:00 o 18:00 en Chile (según horario de verano), después
+    # del cierre de la Bolsa de Santiago. Corre de lunes a viernes.
+    - cron: "0 21 * * 1-5"
+  workflow_dispatch: {} # permite correrlo manualmente desde la pestaña Actions
+
+permissions:
+  contents: write
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Ejecutar motor de datos
+        run: node scripts/fetch-data.js
+
+      - name: Commitear datos actualizados
+        run: |
+          git config user.name "nemo-bot"
+          git config user.email "actions@github.com"
+          git add data/stocks.json
+          git diff --quiet --cached || git commit -m "Actualización automática de datos $(date +'%Y-%m-%d %H:%M')"
+          git push
