@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nemo — Bitácora de dividendos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0D12; --surface:#12161D; --surface-2:#181D26; --surface-hover:#1D2330;
+    --border:rgba(255,255,255,0.07); --border-strong:rgba(255,255,255,0.14);
+    --text:#F3F4F6; --text-dim:#9198A8; --text-faint:#5B6270;
+    --brand-1:#E8935B; --brand-2:#D65F82; --gold:#E8B84B;
+    --positive:#3ED9A6; --negative:#F16565; --blue-1:#5B7FFF; --blue-2:#8B6CFF;
+    --radius-lg:18px; --radius-md:12px;
+    --shadow-card:0 1px 2px rgba(0,0,0,0.5), 0 12px 32px -12px rgba(0,0,0,0.65);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1100px 600px at 12% -10%, rgba(232,147,91,0.08), transparent 60%),
+      radial-gradient(900px 500px at 92% 10%, rgba(91,127,255,0.07), transparent 55%),
+      var(--bg);
+    color:var(--text); font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased;
+    min-height:100vh; padding-bottom:80px;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .grad-text{background:linear-gradient(120deg,var(--brand-1),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+  header.topbar{
+    position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
+    padding:16px 40px;background:rgba(10,13,18,0.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border);flex-wrap:wrap;gap:12px;
+  }
+  .brand{display:flex;align-items:center;gap:11px;}
+  .brand-icon{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--brand-1),var(--brand-2));display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px -2px rgba(214,95,130,0.5);}
+  .brand-icon svg{width:17px;height:17px;}
+  .brand-name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;letter-spacing:-0.2px;}
+  .brand-tag{font-size:11px;color:var(--text-faint);margin-left:11px;padding-left:11px;border-left:1px solid var(--border-strong);}
+  .topbar-right{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+  .status-chip{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--text-dim);background:var(--surface);border:1px solid var(--border);padding:6px 12px;border-radius:20px;}
+  .status-chip .dot{width:6px;height:6px;border-radius:50%;background:var(--positive);box-shadow:0 0 8px var(--positive);}
+  .segmented{display:flex;gap:2px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:3px;}
+  .segmented button{font-family:'Inter',sans-serif;font-weight:500;font-size:12.5px;padding:7px 15px;border:none;border-radius:7px;cursor:pointer;background:transparent;color:var(--text-dim);}
+  .segmented button.active{background:linear-gradient(135deg,var(--brand-1),var(--brand-2));color:#1a1210;font-weight:600;}
+
+  main{max-width:1240px;margin:0 auto;padding:36px 40px;}
+
+  .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:32px;}
+  .kpi-card{position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px 22px 20px 22px;box-shadow:var(--shadow-card);}
+  .kpi-card::after{content:'';position:absolute;top:-40%;right:-30%;width:140px;height:140px;border-radius:50%;filter:blur(30px);opacity:0.16;}
+  .kpi-card.c1::after{background:var(--brand-1);} .kpi-card.c2::after{background:var(--gold);}
+  .kpi-card.c3::after{background:var(--positive);} .kpi-card.c4::after{background:var(--blue-1);}
+  .kpi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+  .kpi-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--surface-2);border:1px solid var(--border);flex-shrink:0;}
+  .kpi-icon svg{width:15px;height:15px;stroke:var(--text-dim);}
+  .kpi-label{font-size:11.5px;color:var(--text-dim);font-weight:500;}
+  .kpi-value{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;letter-spacing:-0.5px;}
+  .kpi-foot{display:flex;align-items:center;gap:6px;margin-top:9px;font-size:11.5px;color:var(--text-faint);}
+
+  .card-shell{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:26px;}
+  .section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:8px;}
+  .section-title{font-family:'Space Grotesk',sans-serif;font-size:16.5px;font-weight:600;}
+  .section-note{font-size:11.5px;color:var(--text-faint);}
+  .content-grid{display:grid;grid-template-columns:1.7fr 1fr;gap:20px;align-items:start;margin-bottom:20px;}
+
+  table.stocks{width:100%;border-collapse:collapse;}
+  table.stocks thead th{text-align:left;font-size:10.5px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--text-faint);padding:0 10px 12px 10px;border-bottom:1px solid var(--border);}
+  table.stocks tbody tr{border-bottom:1px solid var(--border);}
+  table.stocks tbody tr:last-child{border-bottom:none;}
+  table.stocks tbody tr:hover{background:var(--surface-2);}
+  table.stocks td{padding:13px 10px;font-size:13px;vertical-align:middle;}
+  .avatar{width:34px;height:34px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:11px;color:#fff;}
+  .avatar.bank{background:linear-gradient(135deg,var(--blue-1),var(--blue-2));}
+  .avatar.mining{background:linear-gradient(135deg,var(--brand-1),var(--brand-2));}
+  .avatar.util{background:linear-gradient(135deg,var(--positive),#1E8F82);}
+  .avatar.fund{background:linear-gradient(135deg,#8B93A1,#5B6270);}
+  .avatar.hold{background:linear-gradient(135deg,var(--negative),var(--brand-1));}
+  .name-cell{display:flex;align-items:center;gap:11px;}
+  .ticker-name{font-weight:600;font-size:13px;}
+  .ticker-full{font-size:11px;color:var(--text-faint);margin-top:1px;}
+  .ia-verdict{font-size:10.5px;color:var(--gold);margin-top:3px;font-style:italic;max-width:260px;}
+  .num{font-family:'IBM Plex Mono',monospace;text-align:right;font-size:12.5px;}
+  .yield-pos{color:var(--positive);font-weight:600;}
+  .change-up{color:var(--positive);} .change-down{color:var(--negative);}
+  .badge-etf{font-size:9px;font-weight:600;letter-spacing:0.3px;background:var(--surface-2);color:var(--text-faint);padding:2px 6px;border-radius:5px;margin-left:7px;vertical-align:1px;}
+  .score-bar-wrap{display:flex;align-items:center;gap:8px;justify-content:flex-end;}
+  .score-track{width:52px;height:5px;border-radius:3px;background:var(--surface-2);overflow:hidden;}
+  .score-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--brand-1),var(--gold));}
+  .score-num{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--text-dim);width:26px;text-align:right;}
+  .semaforo{display:inline-block;width:7px;height:7px;border-radius:50%;}
+  .semaforo.g{background:var(--positive);box-shadow:0 0 7px var(--positive);}
+  .semaforo.a{background:var(--gold);box-shadow:0 0 7px var(--gold);}
+  .semaforo.r{background:var(--negative);box-shadow:0 0 7px var(--negative);}
+  .semaforo.n{background:var(--text-faint);}
+  .table-note{padding:14px 4px 2px 4px;font-size:11.5px;color:var(--text-faint);border-top:1px solid var(--border);margin-top:6px;}
+
+  .side-stack{display:flex;flex-direction:column;gap:20px;}
+  .cal-list{display:flex;flex-direction:column;gap:2px;}
+  .cal-row{display:flex;align-items:center;gap:12px;padding:10px 4px;border-bottom:1px solid var(--border);}
+  .cal-row:last-child{border-bottom:none;}
+  .cal-date{width:42px;text-align:center;flex-shrink:0;background:var(--surface-2);border-radius:8px;padding:5px 0;}
+  .cal-date .d{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;line-height:1;}
+  .cal-date .m{font-size:8.5px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.3px;}
+  .cal-info{flex:1;min-width:0;}
+  .cal-ticker{font-weight:600;font-size:12.5px;}
+  .cal-company{font-size:10.5px;color:var(--text-faint);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .cal-days{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-faint);}
+  .empty-note{font-size:12px;color:var(--text-faint);padding:8px 4px;}
+
+  .placeholder-card{border:1px dashed var(--border-strong);border-radius:var(--radius-md);padding:16px;font-size:12px;color:var(--text-faint);line-height:1.6;}
+
+  .ai-dock{margin-top:22px;background:linear-gradient(var(--surface),var(--surface)) padding-box,linear-gradient(120deg,rgba(232,147,91,0.5),rgba(91,127,255,0.4)) border-box;border:1px solid transparent;border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:22px 26px;}
+  .ai-dock-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px;}
+  .ai-dock-title{display:flex;align-items:center;gap:10px;}
+  .ai-dock-title .icon{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--brand-1),var(--blue-2));display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .ai-dock-title .icon svg{width:14px;height:14px;stroke:#fff;}
+  .ai-dock-title h3{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;margin:0;}
+  .ai-dock-sub{font-size:11px;color:var(--text-faint);}
+  .free-pill{font-size:10px;font-weight:700;letter-spacing:0.3px;color:var(--positive);background:rgba(62,217,166,0.12);padding:4px 9px;border-radius:20px;white-space:nowrap;}
+  .ai-textarea{width:100%;min-height:90px;background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:13px 16px;font-size:12px;color:var(--text);font-family:'IBM Plex Mono',monospace;resize:vertical;margin-bottom:12px;}
+  .ai-textarea::placeholder{color:var(--text-faint);font-family:'Inter',sans-serif;}
+  .ai-actions{display:flex;gap:10px;flex-wrap:wrap;}
+  .btn{font-family:'Inter',sans-serif;font-weight:600;font-size:13px;padding:12px 20px;border-radius:12px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);cursor:pointer;display:flex;align-items:center;gap:7px;white-space:nowrap;}
+  .btn.primary{background:linear-gradient(135deg,var(--brand-1),var(--brand-2));color:#1a1210;border:none;box-shadow:0 6px 18px -4px rgba(214,95,130,0.45);}
+  .btn svg{width:14px;height:14px;}
+  .ai-status{font-size:11.5px;margin-top:10px;}
+  .ai-status.ok{color:var(--positive);} .ai-status.err{color:var(--negative);}
+
+  footer.app-note{max-width:1240px;margin:44px auto 0 auto;padding:22px 40px 0 40px;border-top:1px solid var(--border);font-size:11.5px;color:var(--text-faint);text-align:center;}
+
+  @media (max-width:900px){
+    main{padding:24px 18px;}
+    header.topbar{padding:14px 18px;}
+    .kpi-row{grid-template-columns:repeat(2,1fr);}
+    .content-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#1a1210" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div>
+    <span class="brand-name">Nemo</span>
+    <span class="brand-tag">Bitácora de dividendos · Bolsa de Santiago</span>
+  </div>
+  <div class="topbar-right">
+    <div class="segmented" id="segmented">
+      <button data-mode="dividendos" class="active">Dividendos</button>
+      <button data-mode="crecimiento">Crecimiento</button>
+      <button data-mode="mixta">Mixta</button>
+    </div>
+    <div class="status-chip"><span class="dot"></span> <span id="lastUpdated">Cargando…</span></div>
+  </div>
+</header>
+
+<main>
+  <div class="kpi-row" id="kpiRow">
+    <div class="kpi-card c1">
+      <div class="kpi-top"><div class="kpi-label">Datos disponibles</div><div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div></div>
+      <div class="kpi-value" id="kpiDatos">—</div>
+      <div class="kpi-foot" id="kpiDatosFoot">instrumentos con datos hoy</div>
+    </div>
+    <div class="kpi-card c2">
+      <div class="kpi-top"><div class="kpi-label">Yield promedio</div><div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M9 12h6"/></svg></div></div>
+      <div class="kpi-value grad-text" id="kpiYield">—</div>
+      <div class="kpi-foot">acciones del universo</div>
+    </div>
+    <div class="kpi-card c3">
+      <div class="kpi-top"><div class="kpi-label">Mejor score hoy</div><div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/></svg></div></div>
+      <div class="kpi-value" style="color:var(--positive)" id="kpiMejor">—</div>
+      <div class="kpi-foot" id="kpiMejorFoot">&nbsp;</div>
+    </div>
+    <div class="kpi-card c4">
+      <div class="kpi-top"><div class="kpi-label">Próximo dividendo</div><div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div></div>
+      <div class="kpi-value" id="kpiProximo">—</div>
+      <div class="kpi-foot" id="kpiProximoFoot">&nbsp;</div>
+    </div>
+  </div>
+
+  <div class="content-grid">
+    <div class="card-shell">
+      <div class="section-head">
+        <div class="section-title">Universo de seguimiento</div>
+        <div class="section-note" id="universeNote">35 instrumentos · IPSA + adicionales</div>
+      </div>
+      <table class="stocks">
+        <thead><tr><th>Nemo</th><th style="text-align:right">Precio</th><th style="text-align:right">Var. día</th><th style="text-align:right">Yield</th><th style="text-align:right">Score</th></tr></thead>
+        <tbody id="stocksBody"><tr><td colspan="5" style="text-align:center;color:var(--text-faint);padding:24px;">Cargando datos…</td></tr></tbody>
+      </table>
+      <div class="table-note" id="tableNote"></div>
+    </div>
+
+    <div class="side-stack">
+      <div class="card-shell">
+        <div class="section-head" style="margin-bottom:16px;"><div class="section-title" style="font-size:14.5px;">Próximos dividendos</div></div>
+        <div class="cal-list" id="calList"><div class="empty-note">Cargando…</div></div>
+      </div>
+      <div class="card-shell">
+        <div class="section-head" style="margin-bottom:16px;"><div class="section-title" style="font-size:14.5px;">Tu cartera</div></div>
+        <div class="placeholder-card">Todavía no está conectada tu cartera personal (qué tienes, cuánto y a qué precio). Cuando quieras la agregamos y aquí aparece el valor total, dividendos recibidos y yield on cost reales.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ai-dock">
+    <div class="ai-dock-top">
+      <div class="ai-dock-title">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></svg></div>
+        <div><h3>Consola IA</h3><div class="ai-dock-sub" id="aiSub">Análisis vía Claude.ai — copiar, pegar, listo</div></div>
+      </div>
+      <span class="free-pill">GRATIS · SIN API KEY</span>
+    </div>
+    <textarea class="ai-textarea" id="aiTextarea" placeholder="1. Click en &quot;Copiar prompt&quot;.  2. Pégalo en una conversación nueva de Claude.ai.  3. Pega acá la respuesta que te devuelva y click en &quot;Procesar&quot;."></textarea>
+    <div class="ai-actions">
+      <button class="btn" id="btnCopyPrompt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copiar prompt</button>
+      <button class="btn primary" id="btnProcess"><svg viewBox="0 0 24 24" fill="none" stroke="#1a1210" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>Procesar respuesta</button>
+    </div>
+    <div class="ai-status" id="aiStatus"></div>
+  </div>
+</main>
+
+<footer class="app-note">Nemo · datos de mercado vía Yahoo Finance, actualizados automáticamente · uso personal</footer>
+
+<script>
+/* =========================================================
+   Lógica pura (probada aparte con Node en app-logic.js)
+   ========================================================= */
+function semaforoClass(score){if(score===null||score===undefined)return"n";if(score>=7)return"g";if(score>=4)return"a";return"r";}
+const SECTOR_AVATAR={Banca:"bank",Utilities:"util",Minería:"mining",Energía:"mining",Materiales:"mining",Holding:"hold","ETF índice":"fund","Renta inmobiliaria":"fund","Renta fija":"fund"};
+function sectorAvatarClass(sector){return SECTOR_AVATAR[sector]||"hold";}
+function formatCLP(value){if(value===null||value===undefined)return"—";return new Intl.NumberFormat("es-CL",{maximumFractionDigits:value<100?2:0}).format(value);}
+function formatPct(value){if(value===null||value===undefined)return"—";return value.toFixed(2).replace(".",",")+"%";}
+function sortStocks(stocks,mode){
+  const withScore=(s)=>{if(mode==="crecimiento")return s.scoreCrecimiento;if(mode==="mixta"){if(s.scoreCrecimiento===null||s.scoreCrecimiento===undefined)return s.scoreDividendo;return(s.scoreDividendo+s.scoreCrecimiento)/2;}return s.scoreDividendo;};
+  return[...stocks].filter((s)=>!s.error).sort((a,b)=>{const sa=withScore(a);const sb=withScore(b);if(sa===null||sa===undefined)return 1;if(sb===null||sb===undefined)return-1;return sb-sa;});
+}
+function computeKpis(data){
+  const ok=data.stocks.filter((s)=>!s.error);
+  const acciones=ok.filter((s)=>s.category==="accion");
+  const yields=acciones.map((s)=>s.dividendYieldPct).filter((v)=>v!==null&&v!==undefined);
+  const yieldPromedio=yields.length?yields.reduce((a,b)=>a+b,0)/yields.length:null;
+  const mejor=ok.filter((s)=>s.scoreDividendo!==null&&s.scoreDividendo!==undefined).sort((a,b)=>b.scoreDividendo-a.scoreDividendo)[0]||null;
+  const now=new Date();
+  const proximos=ok.filter((s)=>s.exDividendDate).map((s)=>({...s,_date:new Date(s.exDividendDate)})).filter((s)=>s._date>=now).sort((a,b)=>a._date-b._date);
+  const proximoDividendo=proximos[0]?{nemo:proximos[0].nemo,date:proximos[0]._date,days:Math.ceil((proximos[0]._date-now)/(1000*60*60*24))}:null;
+  return{totalOk:ok.length,totalTickers:data.totalTickers,yieldPromedio,mejor,proximoDividendo};
+}
+function buildDividendCalendar(stocks,maxItems){
+  maxItems=maxItems||8;const now=new Date();
+  return stocks.filter((s)=>!s.error&&s.exDividendDate).map((s)=>({...s,_date:new Date(s.exDividendDate)})).filter((s)=>s._date>=now).sort((a,b)=>a._date-b._date).slice(0,maxItems)
+    .map((s)=>({nemo:s.nemo,name:s.name,date:s._date,day:s._date.getDate(),month:s._date.toLocaleDateString("es-CL",{month:"short"}).replace(".","")}));
+}
+function buildAIPrompt(stocks){
+  const ok=stocks.filter((s)=>!s.error);
+  const lines=ok.map((s)=>{
+    const base=`${s.nemo} | ${s.name} | sector: ${s.sector} | categoría: ${s.category} | precio: ${s.price} ${s.currency} | yield: ${s.dividendYieldPct??"n/d"}%`;
+    if(s.category==="fondo")return base;
+    return base+` | payout: ${s.payoutRatioPct??"n/d"}% | deuda/patrimonio: ${s.debtToEquity??"n/d"} | crecimiento utilidades: ${s.earningsGrowthPct??"n/d"}% | crecimiento ingresos: ${s.revenueGrowthPct??"n/d"}% | ROE: ${s.roePct??"n/d"}% | score dividendo (regla automática): ${s.scoreDividendo??"n/d"} | score crecimiento (regla automática): ${s.scoreCrecimiento??"n/d"}`;
+  });
+  return `Eres un analista financiero. Te paso datos fundamentales de ${ok.length} instrumentos de la Bolsa de Santiago (acciones y fondos/ETF). Para cada uno, dame un veredicto breve (máx 20 palabras) y hasta 2 alertas de riesgo si corresponde, en base a estos datos (no inventes datos que no te doy).\n\nResponde SOLO con un array JSON, sin texto antes ni después, con este formato exacto:\n[{"nemo":"CHILE","veredicto":"...","alertas":["..."]}]\n\nDatos:\n`+lines.join("\n");
+}
+function parseAIResponse(rawText){
+  if(!rawText||!rawText.trim())throw new Error("Pega primero la respuesta de la IA en el cuadro de texto.");
+  let cleaned=rawText.trim();
+  cleaned=cleaned.replace(/^```json\s*/i,"").replace(/^```\s*/i,"").replace(/```\s*$/i,"");
+  const start=cleaned.indexOf("[");const end=cleaned.lastIndexOf("]");
+  if(start===-1||end===-1)throw new Error("No encontré un array JSON en el texto pegado. Revisa que hayas copiado la respuesta completa.");
+  cleaned=cleaned.slice(start,end+1);
+  let parsed;
+  try{parsed=JSON.parse(cleaned);}catch(e){throw new Error("El JSON pegado no es válido: "+e.message);}
+  if(!Array.isArray(parsed))throw new Error('Esperaba un array JSON, ej: [{...}, {...}]');
+  const map={};
+  for(const item of parsed){if(item&&item.nemo){map[item.nemo.toUpperCase()]={veredicto:item.veredicto||"",alertas:Array.isArray(item.alertas)?item.alertas:[]};}}
+  return map;
+}
+function mergeAIOverlay(stocks,overlayMap){
+  return stocks.map((s)=>{const overlay=overlayMap[s.nemo.toUpperCase()];return overlay?{...s,iaVeredicto:overlay.veredicto,iaAlertas:overlay.alertas}:s;});
+}
+
+/* =========================================================
+   Glue de DOM / estado de la app
+   ========================================================= */
+const state={data:null,sortMode:"dividendos",aiOverlay:{}};
+
+function loadAIOverlayFromStorage(){
+  try{
+    const raw=localStorage.getItem("nemo_ai_overlay");
+    if(!raw)return;
+    const saved=JSON.parse(raw);
+    state.aiOverlay=saved.overlay||{};
+    if(saved.timestamp){document.getElementById("aiSub").textContent="Último análisis IA: "+new Date(saved.timestamp).toLocaleString("es-CL");}
+  }catch(e){/* si algo quedó corrupto en localStorage, seguimos sin overlay */}
+}
+function saveAIOverlayToStorage(){
+  localStorage.setItem("nemo_ai_overlay",JSON.stringify({overlay:state.aiOverlay,timestamp:new Date().toISOString()}));
+}
+
+function currentStocksWithOverlay(){
+  return mergeAIOverlay(state.data.stocks,state.aiOverlay);
+}
+
+function render(){
+  const stocks=currentStocksWithOverlay();
+  renderKpis(computeKpis({...state.data,stocks}));
+  renderTable(sortStocks(stocks,state.sortMode));
+  renderCalendar(buildDividendCalendar(stocks));
+  const failed=state.data.failedTickers||[];
+  const noteEl=document.getElementById("tableNote");
+  noteEl.textContent=failed.length?`${failed.length} instrumento(s) sin datos hoy: `+failed.map((f)=>f.nemo).join(", "):"Todos los instrumentos tienen datos hoy.";
+  document.getElementById("lastUpdated").textContent="Actualizado "+new Date(state.data.lastUpdated).toLocaleString("es-CL");
+  document.getElementById("universeNote").textContent=`${state.data.totalTickers} instrumentos · IPSA + adicionales`;
+}
+
+function renderKpis(k){
+  document.getElementById("kpiDatos").textContent=k.totalOk+"/"+k.totalTickers;
+  document.getElementById("kpiYield").textContent=k.yieldPromedio!==null?formatPct(k.yieldPromedio):"—";
+  if(k.mejor){document.getElementById("kpiMejor").textContent=k.mejor.scoreDividendo.toFixed(1);document.getElementById("kpiMejorFoot").textContent=k.mejor.nemo+" · "+k.mejor.name;}
+  if(k.proximoDividendo){document.getElementById("kpiProximo").textContent=k.proximoDividendo.days+" días";document.getElementById("kpiProximoFoot").textContent=k.proximoDividendo.nemo+" · "+k.proximoDividendo.date.toLocaleDateString("es-CL");}
+  else{document.getElementById("kpiProximo").textContent="—";document.getElementById("kpiProximoFoot").textContent="sin fechas próximas";}
+}
+
+function renderTable(sorted){
+  const tbody=document.getElementById("stocksBody");
+  if(!sorted.length){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--text-faint);padding:24px;">No hay instrumentos con datos.</td></tr>';return;}
+  tbody.innerHTML=sorted.map((s)=>{
+    const score=state.sortMode==="crecimiento"?s.scoreCrecimiento:(state.sortMode==="mixta"?(s.scoreCrecimiento!=null?(s.scoreDividendo+s.scoreCrecimiento)/2:s.scoreDividendo):s.scoreDividendo);
+    const scoreDisplay=score!==null&&score!==undefined?score.toFixed(1):"—";
+    const scorePct=score!==null&&score!==undefined?Math.max(0,Math.min(100,score*10)):0;
+    const changeClass=s.change>0?"change-up":(s.change<0?"change-down":"");
+    const changeSign=s.change>0?"+":"";
+    const initials=s.nemo.replace(/[^A-Z]/gi,"").slice(0,2).toUpperCase();
+    const fondoBadge=s.category==="fondo"?'<span class="badge-etf">FONDO</span>':"";
+    const iaLine=s.iaVeredicto?`<div class="ia-verdict">💬 ${escapeHtml(s.iaVeredicto)}</div>`:"";
+    return `<tr>
+      <td><div class="name-cell">
+        <div class="avatar ${sectorAvatarClass(s.sector)}">${initials}</div>
+        <div><div class="ticker-name">${s.nemo}${fondoBadge} <span class="semaforo ${semaforoClass(s.scoreDividendo)}" style="margin-left:6px"></span></div>
+        <div class="ticker-full">${escapeHtml(s.name)}</div>${iaLine}</div>
+      </div></td>
+      <td class="num">$${formatCLP(s.price)}</td>
+      <td class="num ${changeClass}">${s.change!==null&&s.change!==undefined?changeSign+s.change.toFixed(2)+"%":"—"}</td>
+      <td class="num ${s.dividendYieldPct?"yield-pos":""}">${formatPct(s.dividendYieldPct)}</td>
+      <td class="num"><div class="score-bar-wrap"><div class="score-track"><div class="score-fill" style="width:${scorePct}%"></div></div><span class="score-num">${scoreDisplay}</span></div></td>
+    </tr>`;
+  }).join("");
+}
+
+function renderCalendar(items){
+  const el=document.getElementById("calList");
+  if(!items.length){el.innerHTML='<div class="empty-note">No hay pagos próximos registrados en los datos actuales.</div>';return;}
+  el.innerHTML=items.map((it)=>{
+    const days=Math.ceil((it.date-new Date())/(1000*60*60*24));
+    return `<div class="cal-row">
+      <div class="cal-date"><div class="d">${it.day}</div><div class="m">${it.month}</div></div>
+      <div class="cal-info"><div class="cal-ticker">${it.nemo}</div><div class="cal-company">${escapeHtml(it.name)}</div></div>
+      <div class="cal-days">${days}d</div>
+    </div>`;
+  }).join("");
+}
+
+function escapeHtml(str){
+  const div=document.createElement("div");div.textContent=str==null?"":str;return div.innerHTML;
+}
+
+/* --- Segmentado (orden de la tabla) --- */
+document.getElementById("segmented").addEventListener("click",(e)=>{
+  const btn=e.target.closest("button[data-mode]");
+  if(!btn)return;
+  document.querySelectorAll("#segmented button").forEach((b)=>b.classList.remove("active"));
+  btn.classList.add("active");
+  state.sortMode=btn.dataset.mode;
+  render();
+});
+
+/* --- Consola IA --- */
+document.getElementById("btnCopyPrompt").addEventListener("click",async()=>{
+  const prompt=buildAIPrompt(state.data.stocks);
+  const btn=document.getElementById("btnCopyPrompt");
+  try{
+    await navigator.clipboard.writeText(prompt);
+    const original=btn.innerHTML;
+    btn.textContent="✓ Copiado";
+    setTimeout(()=>{btn.innerHTML=original;},1800);
+  }catch(e){
+    document.getElementById("aiStatus").className="ai-status err";
+    document.getElementById("aiStatus").textContent="No pude copiar automáticamente (permiso del navegador). Selecciona y copia el texto manualmente desde la consola de tu navegador, o intenta de nuevo.";
+  }
+});
+
+document.getElementById("btnProcess").addEventListener("click",()=>{
+  const textarea=document.getElementById("aiTextarea");
+  const statusEl=document.getElementById("aiStatus");
+  try{
+    const overlay=parseAIResponse(textarea.value);
+    const count=Object.keys(overlay).length;
+    if(count===0){throw new Error("El JSON se leyó bien pero no traía ningún ticker reconocible (revisa el campo 'nemo').");}
+    state.aiOverlay={...state.aiOverlay,...overlay};
+    saveAIOverlayToStorage();
+    render();
+    statusEl.className="ai-status ok";
+    statusEl.textContent=`✓ Se aplicó el análisis IA a ${count} instrumento(s). Se guardó en este navegador.`;
+    document.getElementById("aiSub").textContent="Último análisis IA: "+new Date().toLocaleString("es-CL");
+  }catch(e){
+    statusEl.className="ai-status err";
+    statusEl.textContent="⚠️ "+e.message;
+  }
+});
+
+/* --- Carga inicial --- */
+async function init(){
+  loadAIOverlayFromStorage();
+  try{
+    const res=await fetch("./data/stocks.json",{cache:"no-store"});
+    if(!res.ok)throw new Error("HTTP "+res.status);
+    state.data=await res.json();
+    render();
+  }catch(e){
+    document.getElementById("stocksBody").innerHTML=
+      '<tr><td colspan="5" style="text-align:center;color:var(--negative);padding:24px;">No se pudo cargar data/stocks.json ('+escapeHtml(e.message)+'). '+
+      'Si abriste este archivo con doble click, ábrelo en su lugar desde tu sitio publicado en GitHub Pages — los navegadores bloquean leer archivos locales así.</td></tr>';
+    document.getElementById("lastUpdated").textContent="Sin datos";
+  }
+}
+init();
+</script>
+</body>
+</html>
