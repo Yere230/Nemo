@@ -112,6 +112,50 @@
 
   .placeholder-card{border:1px dashed var(--border-strong);border-radius:var(--radius-md);padding:16px;font-size:12px;color:var(--text-faint);line-height:1.6;}
 
+  /* --- Cartera personal --- */
+  .held-row td:first-child{box-shadow:inset 3px 0 0 var(--brand-1);}
+  .held-tag{font-size:9px;font-weight:600;letter-spacing:0.3px;color:var(--brand-1);background:rgba(232,147,91,0.12);padding:2px 6px;border-radius:5px;margin-left:6px;vertical-align:1px;}
+  .holding-row{display:flex;align-items:center;gap:10px;padding:9px 4px;border-bottom:1px solid var(--border);}
+  .holding-row:last-child{border-bottom:none;}
+  .holding-main{flex:1;min-width:0;}
+  .holding-ticker{font-weight:600;font-size:12.5px;}
+  .holding-sub{font-size:10.5px;color:var(--text-faint);}
+  .holding-value{text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px;}
+  .holding-gain{font-size:10px;}
+  .holding-gain.up{color:var(--positive);} .holding-gain.down{color:var(--negative);}
+  .holding-actions{display:flex;gap:4px;}
+  .btn-icon-sm{width:24px;height:24px;border-radius:6px;border:1px solid var(--border);background:var(--surface-2);color:var(--text-dim);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .btn-icon-sm:hover{background:var(--surface-hover);color:var(--text);}
+  .btn-icon-sm svg{width:12px;height:12px;}
+
+  .inline-form{display:none;flex-direction:column;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);}
+  .inline-form.open{display:flex;}
+  .inline-form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .inline-form input,.inline-form select{
+    background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:9px 11px;
+    font-size:12.5px;color:var(--text);font-family:'Inter',sans-serif;width:100%;
+  }
+  .inline-form input::placeholder{color:var(--text-faint);}
+  .inline-form-actions{display:flex;gap:8px;margin-top:2px;}
+  .btn-sm{font-size:12px;padding:9px 14px;}
+  .link-btn{background:none;border:none;color:var(--text-dim);font-size:12px;cursor:pointer;padding:6px 4px;text-align:left;}
+  .link-btn:hover{color:var(--text);}
+  .form-error{font-size:11px;color:var(--negative);}
+
+  .allocation-legend{display:flex;flex-direction:column;gap:7px;margin-top:14px;}
+  .legend-item{display:flex;align-items:center;gap:8px;font-size:11.5px;}
+  .legend-dot{width:8px;height:8px;border-radius:3px;flex-shrink:0;}
+  .legend-item .pct{margin-left:auto;font-family:'IBM Plex Mono',monospace;color:var(--text-dim);font-size:11px;}
+
+  .divlog-summary{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;}
+  .divlog-total{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:var(--positive);}
+  .divlog-count{font-size:11px;color:var(--text-faint);}
+  .divlog-row{display:flex;align-items:center;gap:10px;padding:7px 4px;border-bottom:1px solid var(--border);font-size:12px;}
+  .divlog-row:last-child{border-bottom:none;}
+  .divlog-row .t{font-weight:600;flex:1;}
+  .divlog-row .d{color:var(--text-faint);font-size:11px;}
+  .divlog-row .a{font-family:'IBM Plex Mono',monospace;color:var(--positive);}
+
   .ai-dock{margin-top:22px;background:linear-gradient(var(--surface),var(--surface)) padding-box,linear-gradient(120deg,rgba(232,147,91,0.5),rgba(91,127,255,0.4)) border-box;border:1px solid transparent;border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:22px 26px;}
   .ai-dock-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px;}
   .ai-dock-title{display:flex;align-items:center;gap:10px;}
@@ -200,8 +244,56 @@
         <div class="cal-list" id="calList"><div class="empty-note">Cargando…</div></div>
       </div>
       <div class="card-shell">
-        <div class="section-head" style="margin-bottom:16px;"><div class="section-title" style="font-size:14.5px;">Tu cartera</div></div>
-        <div class="placeholder-card">Todavía no está conectada tu cartera personal (qué tienes, cuánto y a qué precio). Cuando quieras la agregamos y aquí aparece el valor total, dividendos recibidos y yield on cost reales.</div>
+        <div class="section-head" style="margin-bottom:14px;">
+          <div class="section-title" style="font-size:14.5px;">Tu cartera</div>
+          <div class="section-note" id="portfolioNote"></div>
+        </div>
+        <div id="portfolioEmpty" class="placeholder-card" style="display:none;">
+          Todavía no tienes posiciones agregadas. Cuando agregues la primera, los KPIs de arriba pasan a mostrar tus números reales (valor, ganancia, yield on cost).
+        </div>
+        <div id="portfolioList"></div>
+        <div id="allocationLegend" class="allocation-legend"></div>
+        <button class="link-btn" id="btnShowHoldingForm">+ Agregar posición</button>
+        <div class="inline-form" id="holdingForm">
+          <input type="hidden" id="holdingId">
+          <div class="inline-form-row">
+            <input list="tickerList" id="holdingTicker" placeholder="Ticker (ej: CHILE)">
+            <input type="number" id="holdingShares" placeholder="Cantidad de acciones" min="0" step="any">
+          </div>
+          <div class="inline-form-row">
+            <input type="number" id="holdingCost" placeholder="Precio promedio de compra (CLP)" min="0" step="any">
+            <input type="date" id="holdingDate">
+          </div>
+          <div class="form-error" id="holdingFormError"></div>
+          <div class="inline-form-actions">
+            <button class="btn btn-sm primary" id="btnSaveHolding" type="button">Guardar</button>
+            <button class="btn btn-sm" id="btnCancelHolding" type="button">Cancelar</button>
+          </div>
+        </div>
+        <datalist id="tickerList"></datalist>
+      </div>
+
+      <div class="card-shell">
+        <div class="section-head" style="margin-bottom:10px;">
+          <div class="section-title" style="font-size:14.5px;">Dividendos recibidos</div>
+        </div>
+        <div class="divlog-summary">
+          <div><div class="divlog-total" id="divlogTotal">$0</div><div class="divlog-count" id="divlogCount">0 pagos este año</div></div>
+        </div>
+        <div id="divlogList"></div>
+        <button class="link-btn" id="btnShowDivForm">+ Registrar dividendo</button>
+        <div class="inline-form" id="divForm">
+          <div class="inline-form-row">
+            <input list="tickerList" id="divTicker" placeholder="Ticker (ej: CHILE)">
+            <input type="date" id="divDate">
+          </div>
+          <input type="number" id="divAmount" placeholder="Monto total recibido (CLP)" min="0" step="any">
+          <div class="form-error" id="divFormError"></div>
+          <div class="inline-form-actions">
+            <button class="btn btn-sm primary" id="btnSaveDiv" type="button">Guardar</button>
+            <button class="btn btn-sm" id="btnCancelDiv" type="button">Cancelar</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -282,9 +374,69 @@ function mergeAIOverlay(stocks,overlayMap){
 }
 
 /* =========================================================
+   Lógica pura de cartera (probada aparte en portfolio-logic.js)
+   ========================================================= */
+function indexStocksByTicker(stocks){const map={};for(const s of stocks)map[s.nemo.toUpperCase()]=s;return map;}
+function computePortfolioValue(holdings,stocksByTicker){
+  if(!holdings.length)return null;
+  let totalValue=0,totalCost=0,hasAnyPrice=false;const unpriced=[];
+  for(const h of holdings){
+    const stock=stocksByTicker[h.ticker.toUpperCase()];
+    totalCost+=h.avgCost*h.shares;
+    if(stock&&stock.price!==null&&stock.price!==undefined&&!stock.error){totalValue+=stock.price*h.shares;hasAnyPrice=true;}
+    else{unpriced.push(h.ticker);}
+  }
+  return{totalValue:hasAnyPrice?totalValue:null,totalCost,gainLoss:hasAnyPrice?totalValue-totalCost:null,gainLossPct:hasAnyPrice&&totalCost>0?((totalValue-totalCost)/totalCost)*100:null,unpriced};
+}
+function computeYieldOnCost(holdings,stocksByTicker){
+  let totalAnnualDiv=0,totalCostConDato=0;
+  for(const h of holdings){
+    const stock=stocksByTicker[h.ticker.toUpperCase()];
+    if(!stock||stock.error||stock.price===null)continue;
+    if(stock.dividendYieldPct===null||stock.dividendYieldPct===undefined)continue;
+    const annualDivPerShare=stock.price*(stock.dividendYieldPct/100);
+    totalAnnualDiv+=annualDivPerShare*h.shares;totalCostConDato+=h.avgCost*h.shares;
+  }
+  if(totalCostConDato===0)return null;
+  return(totalAnnualDiv/totalCostConDato)*100;
+}
+function computeYTDDividends(divLog,year){
+  const y=year||new Date().getFullYear();
+  const entries=divLog.filter((d)=>new Date(d.date).getFullYear()===y);
+  return{total:entries.reduce((sum,d)=>sum+d.amount,0),count:entries.length};
+}
+function computeNextPortfolioDividend(holdings,stocksByTicker){
+  const heldTickers=new Set(holdings.map((h)=>h.ticker.toUpperCase()));
+  const now=new Date();
+  const candidatos=Object.values(stocksByTicker)
+    .filter((s)=>heldTickers.has(s.nemo.toUpperCase())&&!s.error&&s.exDividendDate)
+    .map((s)=>({...s,_date:new Date(s.exDividendDate)})).filter((s)=>s._date>=now).sort((a,b)=>a._date-b._date);
+  if(!candidatos.length)return null;
+  const next=candidatos[0];
+  return{nemo:next.nemo,name:next.name,date:next._date,days:Math.ceil((next._date-now)/(1000*60*60*24))};
+}
+function computePortfolioAllocation(holdings,stocksByTicker,maxSlices){
+  maxSlices=maxSlices||5;const items=[];let total=0;
+  for(const h of holdings){
+    const stock=stocksByTicker[h.ticker.toUpperCase()];
+    if(!stock||stock.error||stock.price===null||stock.price===undefined)continue;
+    const value=stock.price*h.shares;items.push({ticker:h.ticker.toUpperCase(),value});total+=value;
+  }
+  if(!items.length)return[];
+  items.sort((a,b)=>b.value-a.value);
+  const top=items.slice(0,maxSlices-1);
+  const restValue=items.slice(maxSlices-1).reduce((s,it)=>s+it.value,0);
+  const result=top.map((it)=>({ticker:it.ticker,value:it.value,pct:(it.value/total)*100}));
+  if(restValue>0)result.push({ticker:"Otros",value:restValue,pct:(restValue/total)*100});
+  return result;
+}
+function makeId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+const ALLOC_COLORS=["var(--blue-1)","var(--brand-1)","var(--gold)","var(--positive)","var(--text-faint)"];
+
+/* =========================================================
    Glue de DOM / estado de la app
    ========================================================= */
-const state={data:null,sortMode:"dividendos",aiOverlay:{}};
+const state={data:null,sortMode:"dividendos",aiOverlay:{},portfolio:[],divLog:[],editingHoldingId:null};
 
 function loadAIOverlayFromStorage(){
   try{
@@ -299,15 +451,39 @@ function saveAIOverlayToStorage(){
   localStorage.setItem("nemo_ai_overlay",JSON.stringify({overlay:state.aiOverlay,timestamp:new Date().toISOString()}));
 }
 
+function loadPortfolioFromStorage(){
+  try{const raw=localStorage.getItem("nemo_portfolio");state.portfolio=raw?JSON.parse(raw):[];}
+  catch(e){state.portfolio=[];}
+}
+function savePortfolioToStorage(){localStorage.setItem("nemo_portfolio",JSON.stringify(state.portfolio));}
+
+function loadDivLogFromStorage(){
+  try{const raw=localStorage.getItem("nemo_dividend_log");state.divLog=raw?JSON.parse(raw):[];}
+  catch(e){state.divLog=[];}
+}
+function saveDivLogToStorage(){localStorage.setItem("nemo_dividend_log",JSON.stringify(state.divLog));}
+
 function currentStocksWithOverlay(){
   return mergeAIOverlay(state.data.stocks,state.aiOverlay);
 }
 
 function render(){
   const stocks=currentStocksWithOverlay();
-  renderKpis(computeKpis({...state.data,stocks}));
-  renderTable(sortStocks(stocks,state.sortMode));
+  const stocksByTicker=indexStocksByTicker(state.data.stocks);
+  const heldSet=new Set(state.portfolio.map((h)=>h.ticker.toUpperCase()));
+
+  const portfolioValue=computePortfolioValue(state.portfolio,stocksByTicker);
+  const portfolioYoc=computeYieldOnCost(state.portfolio,stocksByTicker);
+  const portfolioYtd=computeYTDDividends(state.divLog);
+  const portfolioNext=computeNextPortfolioDividend(state.portfolio,stocksByTicker);
+
+  renderKpis(computeKpis({...state.data,stocks}),{value:portfolioValue,yoc:portfolioYoc,ytd:portfolioYtd,next:portfolioNext});
+  renderTable(sortStocks(stocks,state.sortMode),heldSet);
   renderCalendar(buildDividendCalendar(stocks));
+  renderPortfolioCard(portfolioValue,stocksByTicker);
+  renderAllocationLegend(computePortfolioAllocation(state.portfolio,stocksByTicker));
+  renderDivLogCard(portfolioYtd);
+
   const failed=state.data.failedTickers||[];
   const noteEl=document.getElementById("tableNote");
   noteEl.textContent=failed.length?`${failed.length} instrumento(s) sin datos hoy: `+failed.map((f)=>f.nemo).join(", "):"Todos los instrumentos tienen datos hoy.";
@@ -315,15 +491,43 @@ function render(){
   document.getElementById("universeNote").textContent=`${state.data.totalTickers} instrumentos · IPSA + adicionales`;
 }
 
-function renderKpis(k){
-  document.getElementById("kpiDatos").textContent=k.totalOk+"/"+k.totalTickers;
-  document.getElementById("kpiYield").textContent=k.yieldPromedio!==null?formatPct(k.yieldPromedio):"—";
-  if(k.mejor){document.getElementById("kpiMejor").textContent=k.mejor.scoreDividendo.toFixed(1);document.getElementById("kpiMejorFoot").textContent=k.mejor.nemo+" · "+k.mejor.name;}
-  if(k.proximoDividendo){document.getElementById("kpiProximo").textContent=k.proximoDividendo.days+" días";document.getElementById("kpiProximoFoot").textContent=k.proximoDividendo.nemo+" · "+k.proximoDividendo.date.toLocaleDateString("es-CL");}
-  else{document.getElementById("kpiProximo").textContent="—";document.getElementById("kpiProximoFoot").textContent="sin fechas próximas";}
+function renderKpis(k,portfolio){
+  const hasPortfolio=state.portfolio.length>0;
+  if(hasPortfolio){
+    document.querySelector('.kpi-card.c1 .kpi-label').textContent="Valor cartera";
+    document.getElementById("kpiDatos").textContent=portfolio.value.totalValue!==null?"$"+formatCLP(portfolio.value.totalValue):"$"+formatCLP(portfolio.value.totalCost)+" (costo)";
+    document.getElementById("kpiDatosFoot").textContent=portfolio.value.gainLossPct!==null?(portfolio.value.gainLossPct>=0?"+":"")+portfolio.value.gainLossPct.toFixed(1)+"% vs costo":(portfolio.value.unpriced.length?portfolio.value.unpriced.length+" posición(es) sin precio hoy":"");
+
+    document.querySelector('.kpi-card.c2 .kpi-label').textContent="Dividendos recibidos";
+    document.getElementById("kpiYield").textContent="$"+formatCLP(portfolio.ytd.total);
+    document.querySelector('.kpi-card.c2 .kpi-foot').textContent=portfolio.ytd.count+" pago(s) este año";
+
+    document.querySelector('.kpi-card.c3 .kpi-label').textContent="Yield on cost";
+    document.getElementById("kpiMejor").textContent=portfolio.yoc!==null?formatPct(portfolio.yoc):"—";
+    document.getElementById("kpiMejorFoot").textContent="ponderado por costo de cartera";
+
+    document.querySelector('.kpi-card.c4 .kpi-label').textContent="Próximo pago (cartera)";
+    if(portfolio.next){document.getElementById("kpiProximo").textContent=portfolio.next.days+" días";document.getElementById("kpiProximoFoot").textContent=portfolio.next.nemo+" · "+portfolio.next.date.toLocaleDateString("es-CL");}
+    else{document.getElementById("kpiProximo").textContent="—";document.getElementById("kpiProximoFoot").textContent="sin fechas próximas entre tus posiciones";}
+  }else{
+    document.querySelector('.kpi-card.c1 .kpi-label').textContent="Datos disponibles";
+    document.getElementById("kpiDatos").textContent=k.totalOk+"/"+k.totalTickers;
+    document.getElementById("kpiDatosFoot").textContent="instrumentos con datos hoy";
+
+    document.querySelector('.kpi-card.c2 .kpi-label').textContent="Yield promedio";
+    document.getElementById("kpiYield").textContent=k.yieldPromedio!==null?formatPct(k.yieldPromedio):"—";
+    document.querySelector('.kpi-card.c2 .kpi-foot').textContent="acciones del universo";
+
+    document.querySelector('.kpi-card.c3 .kpi-label').textContent="Mejor score hoy";
+    if(k.mejor){document.getElementById("kpiMejor").textContent=k.mejor.scoreDividendo.toFixed(1);document.getElementById("kpiMejorFoot").textContent=k.mejor.nemo+" · "+k.mejor.name;}
+
+    document.querySelector('.kpi-card.c4 .kpi-label').textContent="Próximo dividendo";
+    if(k.proximoDividendo){document.getElementById("kpiProximo").textContent=k.proximoDividendo.days+" días";document.getElementById("kpiProximoFoot").textContent=k.proximoDividendo.nemo+" · "+k.proximoDividendo.date.toLocaleDateString("es-CL");}
+    else{document.getElementById("kpiProximo").textContent="—";document.getElementById("kpiProximoFoot").textContent="sin fechas próximas";}
+  }
 }
 
-function renderTable(sorted){
+function renderTable(sorted,heldSet){
   const tbody=document.getElementById("stocksBody");
   if(!sorted.length){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--text-faint);padding:24px;">No hay instrumentos con datos.</td></tr>';return;}
   tbody.innerHTML=sorted.map((s)=>{
@@ -334,11 +538,13 @@ function renderTable(sorted){
     const changeSign=s.change>0?"+":"";
     const initials=s.nemo.replace(/[^A-Z]/gi,"").slice(0,2).toUpperCase();
     const fondoBadge=s.category==="fondo"?'<span class="badge-etf">FONDO</span>':"";
+    const heldBadge=heldSet&&heldSet.has(s.nemo.toUpperCase())?'<span class="held-tag">EN CARTERA</span>':"";
     const iaLine=s.iaVeredicto?`<div class="ia-verdict">💬 ${escapeHtml(s.iaVeredicto)}</div>`:"";
-    return `<tr>
+    const rowClass=heldSet&&heldSet.has(s.nemo.toUpperCase())?"held-row":"";
+    return `<tr class="${rowClass}">
       <td><div class="name-cell">
         <div class="avatar ${sectorAvatarClass(s.sector)}">${initials}</div>
-        <div><div class="ticker-name">${s.nemo}${fondoBadge} <span class="semaforo ${semaforoClass(s.scoreDividendo)}" style="margin-left:6px"></span></div>
+        <div><div class="ticker-name">${s.nemo}${fondoBadge}${heldBadge} <span class="semaforo ${semaforoClass(s.scoreDividendo)}" style="margin-left:6px"></span></div>
         <div class="ticker-full">${escapeHtml(s.name)}</div>${iaLine}</div>
       </div></td>
       <td class="num">$${formatCLP(s.price)}</td>
@@ -366,6 +572,80 @@ function escapeHtml(str){
   const div=document.createElement("div");div.textContent=str==null?"":str;return div.innerHTML;
 }
 
+/* --- Cartera --- */
+function renderPortfolioCard(portfolioValue,stocksByTicker){
+  const emptyEl=document.getElementById("portfolioEmpty");
+  const listEl=document.getElementById("portfolioList");
+  const noteEl=document.getElementById("portfolioNote");
+  noteEl.textContent=state.portfolio.length?state.portfolio.length+" posición(es)":"";
+
+  if(!state.portfolio.length){emptyEl.style.display="block";listEl.innerHTML="";return;}
+  emptyEl.style.display="none";
+
+  listEl.innerHTML=state.portfolio.map((h)=>{
+    const stock=stocksByTicker[h.ticker.toUpperCase()];
+    const value=stock&&stock.price!=null&&!stock.error?stock.price*h.shares:null;
+    const cost=h.avgCost*h.shares;
+    const gainPct=value!==null&&cost>0?((value-cost)/cost)*100:null;
+    return `<div class="holding-row">
+      <div class="holding-main">
+        <div class="holding-ticker">${escapeHtml(h.ticker.toUpperCase())}</div>
+        <div class="holding-sub">${h.shares} acciones · costo $${formatCLP(h.avgCost)}</div>
+      </div>
+      <div>
+        <div class="holding-value">${value!==null?"$"+formatCLP(value):"sin precio"}</div>
+        ${gainPct!==null?`<div class="holding-gain ${gainPct>=0?"up":"down"}">${gainPct>=0?"+":""}${gainPct.toFixed(1)}%</div>`:""}
+      </div>
+      <div class="holding-actions">
+        <button class="btn-icon-sm" data-edit-holding="${h.id}" title="Editar" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button>
+        <button class="btn-icon-sm" data-delete-holding="${h.id}" title="Eliminar" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0l-1 14a2 2 0 01-2 2H7a2 2 0 01-2-2L4 6"/></svg></button>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function renderAllocationLegend(alloc){
+  const el=document.getElementById("allocationLegend");
+  if(!alloc.length){el.innerHTML="";return;}
+  el.innerHTML=alloc.map((a,i)=>`<div class="legend-item"><span class="legend-dot" style="background:${ALLOC_COLORS[i%ALLOC_COLORS.length]}"></span>${escapeHtml(a.ticker)}<span class="pct">${a.pct.toFixed(1)}%</span></div>`).join("");
+}
+
+function resetHoldingForm(){
+  state.editingHoldingId=null;
+  document.getElementById("holdingId").value="";
+  document.getElementById("holdingTicker").value="";
+  document.getElementById("holdingShares").value="";
+  document.getElementById("holdingCost").value="";
+  document.getElementById("holdingDate").value="";
+  document.getElementById("holdingFormError").textContent="";
+}
+
+/* --- Dividendos recibidos --- */
+function renderDivLogCard(ytd){
+  document.getElementById("divlogTotal").textContent="$"+formatCLP(ytd.total);
+  document.getElementById("divlogCount").textContent=ytd.count+" pago(s) este año";
+  const listEl=document.getElementById("divlogList");
+  const recent=[...state.divLog].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,6);
+  if(!recent.length){listEl.innerHTML='<div class="empty-note">Todavía no has registrado dividendos recibidos.</div>';return;}
+  listEl.innerHTML=recent.map((d)=>`<div class="divlog-row">
+      <span class="t">${escapeHtml(d.ticker.toUpperCase())}</span>
+      <span class="d">${new Date(d.date).toLocaleDateString("es-CL")}</span>
+      <span class="a">$${formatCLP(d.amount)}</span>
+      <button class="btn-icon-sm" data-delete-div="${d.id}" title="Eliminar" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0l-1 14a2 2 0 01-2 2H7a2 2 0 01-2-2L4 6"/></svg></button>
+    </div>`).join("");
+}
+function resetDivForm(){
+  document.getElementById("divTicker").value="";
+  document.getElementById("divDate").value="";
+  document.getElementById("divAmount").value="";
+  document.getElementById("divFormError").textContent="";
+}
+
+function populateTickerDatalist(stocks){
+  const el=document.getElementById("tickerList");
+  el.innerHTML=stocks.map((s)=>`<option value="${s.nemo}">${escapeHtml(s.name)}</option>`).join("");
+}
+
 /* --- Segmentado (orden de la tabla) --- */
 document.getElementById("segmented").addEventListener("click",(e)=>{
   const btn=e.target.closest("button[data-mode]");
@@ -373,6 +653,90 @@ document.getElementById("segmented").addEventListener("click",(e)=>{
   document.querySelectorAll("#segmented button").forEach((b)=>b.classList.remove("active"));
   btn.classList.add("active");
   state.sortMode=btn.dataset.mode;
+  render();
+});
+
+/* --- Formulario de posiciones (agregar/editar) --- */
+document.getElementById("btnShowHoldingForm").addEventListener("click",()=>{
+  resetHoldingForm();
+  document.getElementById("holdingForm").classList.add("open");
+});
+document.getElementById("btnCancelHolding").addEventListener("click",()=>{
+  document.getElementById("holdingForm").classList.remove("open");
+  resetHoldingForm();
+});
+document.getElementById("btnSaveHolding").addEventListener("click",()=>{
+  const ticker=document.getElementById("holdingTicker").value.trim().toUpperCase();
+  const shares=parseFloat(document.getElementById("holdingShares").value);
+  const avgCost=parseFloat(document.getElementById("holdingCost").value);
+  const purchaseDate=document.getElementById("holdingDate").value||null;
+  const errEl=document.getElementById("holdingFormError");
+
+  if(!ticker){errEl.textContent="Escribe un ticker.";return;}
+  if(!shares||shares<=0){errEl.textContent="La cantidad de acciones debe ser mayor a 0.";return;}
+  if(!avgCost||avgCost<=0){errEl.textContent="El precio promedio debe ser mayor a 0.";return;}
+
+  if(state.editingHoldingId){
+    const h=state.portfolio.find((x)=>x.id===state.editingHoldingId);
+    if(h){h.ticker=ticker;h.shares=shares;h.avgCost=avgCost;h.purchaseDate=purchaseDate;}
+  }else{
+    state.portfolio.push({id:makeId(),ticker,shares,avgCost,purchaseDate});
+  }
+  savePortfolioToStorage();
+  document.getElementById("holdingForm").classList.remove("open");
+  resetHoldingForm();
+  render();
+});
+document.getElementById("portfolioList").addEventListener("click",(e)=>{
+  const editBtn=e.target.closest("[data-edit-holding]");
+  const delBtn=e.target.closest("[data-delete-holding]");
+  if(editBtn){
+    const h=state.portfolio.find((x)=>x.id===editBtn.dataset.editHolding);
+    if(!h)return;
+    state.editingHoldingId=h.id;
+    document.getElementById("holdingId").value=h.id;
+    document.getElementById("holdingTicker").value=h.ticker;
+    document.getElementById("holdingShares").value=h.shares;
+    document.getElementById("holdingCost").value=h.avgCost;
+    document.getElementById("holdingDate").value=h.purchaseDate||"";
+    document.getElementById("holdingForm").classList.add("open");
+  }else if(delBtn){
+    state.portfolio=state.portfolio.filter((x)=>x.id!==delBtn.dataset.deleteHolding);
+    savePortfolioToStorage();
+    render();
+  }
+});
+
+/* --- Formulario de dividendos recibidos --- */
+document.getElementById("btnShowDivForm").addEventListener("click",()=>{
+  resetDivForm();
+  document.getElementById("divForm").classList.add("open");
+});
+document.getElementById("btnCancelDiv").addEventListener("click",()=>{
+  document.getElementById("divForm").classList.remove("open");
+  resetDivForm();
+});
+document.getElementById("btnSaveDiv").addEventListener("click",()=>{
+  const ticker=document.getElementById("divTicker").value.trim().toUpperCase();
+  const date=document.getElementById("divDate").value;
+  const amount=parseFloat(document.getElementById("divAmount").value);
+  const errEl=document.getElementById("divFormError");
+
+  if(!ticker){errEl.textContent="Escribe un ticker.";return;}
+  if(!date){errEl.textContent="Elige la fecha del pago.";return;}
+  if(!amount||amount<=0){errEl.textContent="El monto debe ser mayor a 0.";return;}
+
+  state.divLog.push({id:makeId(),ticker,date,amount});
+  saveDivLogToStorage();
+  document.getElementById("divForm").classList.remove("open");
+  resetDivForm();
+  render();
+});
+document.getElementById("divlogList").addEventListener("click",(e)=>{
+  const delBtn=e.target.closest("[data-delete-div]");
+  if(!delBtn)return;
+  state.divLog=state.divLog.filter((x)=>x.id!==delBtn.dataset.deleteDiv);
+  saveDivLogToStorage();
   render();
 });
 
@@ -413,10 +777,13 @@ document.getElementById("btnProcess").addEventListener("click",()=>{
 /* --- Carga inicial --- */
 async function init(){
   loadAIOverlayFromStorage();
+  loadPortfolioFromStorage();
+  loadDivLogFromStorage();
   try{
     const res=await fetch("./data/stocks.json",{cache:"no-store"});
     if(!res.ok)throw new Error("HTTP "+res.status);
     state.data=await res.json();
+    populateTickerDatalist(state.data.stocks);
     render();
   }catch(e){
     document.getElementById("stocksBody").innerHTML=
