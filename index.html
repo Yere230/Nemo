@@ -97,6 +97,26 @@
   .semaforo.n{background:var(--text-faint);}
   .table-note{padding:14px 4px 2px 4px;font-size:11.5px;color:var(--text-faint);border-top:1px solid var(--border);margin-top:6px;}
 
+  .search-wrap{position:relative;margin-bottom:16px;}
+  .search-wrap svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--text-faint);pointer-events:none;}
+  .search-wrap input{
+    width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;
+    padding:11px 14px 11px 38px;font-size:13px;color:var(--text);font-family:'Inter',sans-serif;
+  }
+  .search-wrap input::placeholder{color:var(--text-faint);}
+  .search-wrap input:focus{outline:none;border-color:var(--border-strong);}
+
+  .pagination{display:flex;align-items:center;justify-content:space-between;padding:14px 4px 0 4px;font-size:12px;color:var(--text-dim);}
+  .pagination .pg-info{color:var(--text-faint);}
+  .pagination .pg-btns{display:flex;gap:6px;}
+  .pagination button{
+    font-family:'Inter',sans-serif;font-size:12px;font-weight:500;
+    padding:7px 13px;border-radius:8px;border:1px solid var(--border);
+    background:var(--surface-2);color:var(--text);cursor:pointer;
+  }
+  .pagination button:disabled{opacity:0.4;cursor:not-allowed;}
+  .pagination button:not(:disabled):hover{background:var(--surface-hover);}
+
   .side-stack{display:flex;flex-direction:column;gap:20px;}
   .cal-list{display:flex;flex-direction:column;gap:2px;}
   .cal-row{display:flex;align-items:center;gap:12px;padding:10px 4px;border-bottom:1px solid var(--border);}
@@ -231,10 +251,15 @@
         <div class="section-title">Universo de seguimiento</div>
         <div class="section-note" id="universeNote">35 instrumentos · IPSA + adicionales</div>
       </div>
+      <div class="search-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" id="searchInput" placeholder="Buscar por ticker o nombre (ej: banco, CHILE, minería)…">
+      </div>
       <table class="stocks">
         <thead><tr><th>Nemo</th><th style="text-align:right">Precio</th><th style="text-align:right">Var. día</th><th style="text-align:right">Yield</th><th style="text-align:right">Score</th></tr></thead>
         <tbody id="stocksBody"><tr><td colspan="5" style="text-align:center;color:var(--text-faint);padding:24px;">Cargando datos…</td></tr></tbody>
       </table>
+      <div class="pagination" id="pagination"></div>
       <div class="table-note" id="tableNote"></div>
     </div>
 
@@ -372,6 +397,19 @@ function parseAIResponse(rawText){
 function mergeAIOverlay(stocks,overlayMap){
   return stocks.map((s)=>{const overlay=overlayMap[s.nemo.toUpperCase()];return overlay?{...s,iaVeredicto:overlay.veredicto,iaAlertas:overlay.alertas}:s;});
 }
+function normalizeSearch(str){return(str||"").toString().normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();}
+function filterStocks(stocks,query){
+  const q=normalizeSearch(query);
+  if(!q)return stocks;
+  return stocks.filter((s)=>normalizeSearch(s.nemo).includes(q)||normalizeSearch(s.name).includes(q));
+}
+function paginate(items,page,pageSize){
+  const totalPages=Math.max(1,Math.ceil(items.length/pageSize));
+  const safePage=Math.min(Math.max(1,page),totalPages);
+  const start=(safePage-1)*pageSize;
+  return{items:items.slice(start,start+pageSize),page:safePage,totalPages,totalItems:items.length};
+}
+const PAGE_SIZE=20;
 
 /* =========================================================
    Lógica pura de cartera (probada aparte en portfolio-logic.js)
@@ -436,7 +474,7 @@ const ALLOC_COLORS=["var(--blue-1)","var(--brand-1)","var(--gold)","var(--positi
 /* =========================================================
    Glue de DOM / estado de la app
    ========================================================= */
-const state={data:null,sortMode:"dividendos",aiOverlay:{},portfolio:[],divLog:[],editingHoldingId:null};
+const state={data:null,sortMode:"dividendos",aiOverlay:{},portfolio:[],divLog:[],editingHoldingId:null,searchQuery:"",currentPage:1};
 
 function loadAIOverlayFromStorage(){
   try{
@@ -478,7 +516,14 @@ function render(){
   const portfolioNext=computeNextPortfolioDividend(state.portfolio,stocksByTicker);
 
   renderKpis(computeKpis({...state.data,stocks}),{value:portfolioValue,yoc:portfolioYoc,ytd:portfolioYtd,next:portfolioNext});
-  renderTable(sortStocks(stocks,state.sortMode),heldSet);
+
+  const sorted=sortStocks(stocks,state.sortMode);
+  const filtered=filterStocks(sorted,state.searchQuery);
+  const paged=paginate(filtered,state.currentPage,PAGE_SIZE);
+  state.currentPage=paged.page; // por si veníamos de una página que ya no existe (ej: al buscar)
+  renderTable(paged.items,heldSet);
+  renderPagination(paged);
+
   renderCalendar(buildDividendCalendar(stocks));
   renderPortfolioCard(portfolioValue,stocksByTicker);
   renderAllocationLegend(computePortfolioAllocation(state.portfolio,stocksByTicker));
@@ -488,7 +533,7 @@ function render(){
   const noteEl=document.getElementById("tableNote");
   noteEl.textContent=failed.length?`${failed.length} instrumento(s) sin datos hoy: `+failed.map((f)=>f.nemo).join(", "):"Todos los instrumentos tienen datos hoy.";
   document.getElementById("lastUpdated").textContent="Actualizado "+new Date(state.data.lastUpdated).toLocaleString("es-CL");
-  document.getElementById("universeNote").textContent=`${state.data.totalTickers} instrumentos · IPSA + adicionales`;
+  document.getElementById("universeNote").textContent=state.searchQuery?`${filtered.length} resultado(s) de ${state.data.totalTickers}`:`${state.data.totalTickers} instrumentos · IPSA + adicionales`;
 }
 
 function renderKpis(k,portfolio){
@@ -529,7 +574,11 @@ function renderKpis(k,portfolio){
 
 function renderTable(sorted,heldSet){
   const tbody=document.getElementById("stocksBody");
-  if(!sorted.length){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--text-faint);padding:24px;">No hay instrumentos con datos.</td></tr>';return;}
+  if(!sorted.length){
+    const msg=state.searchQuery?`Sin resultados para "${escapeHtml(state.searchQuery)}".`:"No hay instrumentos con datos.";
+    tbody.innerHTML=`<tr><td colspan="5" style="text-align:center;color:var(--text-faint);padding:24px;">${msg}</td></tr>`;
+    return;
+  }
   tbody.innerHTML=sorted.map((s)=>{
     const score=state.sortMode==="crecimiento"?s.scoreCrecimiento:(state.sortMode==="mixta"?(s.scoreCrecimiento!=null?(s.scoreDividendo+s.scoreCrecimiento)/2:s.scoreDividendo):s.scoreDividendo);
     const scoreDisplay=score!==null&&score!==undefined?score.toFixed(1):"—";
@@ -553,6 +602,21 @@ function renderTable(sorted,heldSet){
       <td class="num"><div class="score-bar-wrap"><div class="score-track"><div class="score-fill" style="width:${scorePct}%"></div></div><span class="score-num">${scoreDisplay}</span></div></td>
     </tr>`;
   }).join("");
+}
+
+function renderPagination(paged){
+  const el=document.getElementById("pagination");
+  if(paged.totalItems===0){el.innerHTML="";return;}
+  el.innerHTML=`
+    <div class="pg-info">Página ${paged.page} de ${paged.totalPages} · ${paged.totalItems} instrumento(s)</div>
+    <div class="pg-btns">
+      <button id="btnPrevPage" type="button" ${paged.page<=1?"disabled":""}>← Anterior</button>
+      <button id="btnNextPage" type="button" ${paged.page>=paged.totalPages?"disabled":""}>Siguiente →</button>
+    </div>`;
+  const prevBtn=document.getElementById("btnPrevPage");
+  const nextBtn=document.getElementById("btnNextPage");
+  if(prevBtn)prevBtn.addEventListener("click",()=>{state.currentPage=Math.max(1,paged.page-1);render();});
+  if(nextBtn)nextBtn.addEventListener("click",()=>{state.currentPage=Math.min(paged.totalPages,paged.page+1);render();});
 }
 
 function renderCalendar(items){
@@ -653,6 +717,14 @@ document.getElementById("segmented").addEventListener("click",(e)=>{
   document.querySelectorAll("#segmented button").forEach((b)=>b.classList.remove("active"));
   btn.classList.add("active");
   state.sortMode=btn.dataset.mode;
+  state.currentPage=1;
+  render();
+});
+
+/* --- Buscador --- */
+document.getElementById("searchInput").addEventListener("input",(e)=>{
+  state.searchQuery=e.target.value;
+  state.currentPage=1;
   render();
 });
 
