@@ -166,7 +166,11 @@ async function fetchOne(entry) {
     roePct,
     fiftyTwoWeekLow: sd.fiftyTwoWeekLow ?? null,
     fiftyTwoWeekHigh: sd.fiftyTwoWeekHigh ?? null,
-    exDividendDate: sd.exDividendDate ?? null,
+    // calendarEvents.exDividendDate es el campo pensado para el PRÓXIMO pago;
+    // summaryDetail.exDividendDate a veces solo refleja el último conocido y
+    // puede volver a null apenas esa fecha pasa. Usamos el que sí tenga dato,
+    // priorizando calendarEvents.
+    exDividendDate: (summary.calendarEvents && summary.calendarEvents.exDividendDate) ?? sd.exDividendDate ?? null,
     scoreDividendo,
     scoreCrecimiento,
     fundamentalsWarning: summaryError, // no es un error fatal, solo un aviso
