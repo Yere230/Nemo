@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nemo — Bitácora de dividendos</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#0A0D12">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Nemo">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
@@ -95,6 +103,11 @@
   .semaforo.a{background:var(--gold);box-shadow:0 0 7px var(--gold);}
   .semaforo.r{background:var(--negative);box-shadow:0 0 7px var(--negative);}
   .semaforo.n{background:var(--text-faint);}
+
+  .spark{display:block;}
+  .spark-cell{width:70px;}
+  .spark-empty{font-size:11px;color:var(--text-faint);}
+
   .table-note{padding:14px 4px 2px 4px;font-size:11.5px;color:var(--text-faint);border-top:1px solid var(--border);margin-top:6px;}
 
   .search-wrap{position:relative;margin-bottom:16px;}
@@ -176,6 +189,13 @@
   .divlog-row .d{color:var(--text-faint);font-size:11px;}
   .divlog-row .a{font-family:'IBM Plex Mono',monospace;color:var(--positive);}
 
+  .pai-block{margin-bottom:12px;font-size:12px;line-height:1.6;}
+  .pai-block h4{font-size:10.5px;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-faint);margin:0 0 5px 0;font-weight:600;}
+  .pai-block p{margin:0;color:var(--text);}
+  .pai-block ul{margin:4px 0 0 0;padding-left:16px;}
+  .pai-block li{margin-bottom:3px;}
+  .pai-timestamp{font-size:10.5px;color:var(--text-faint);margin-bottom:10px;}
+
   .ai-dock{margin-top:22px;background:linear-gradient(var(--surface),var(--surface)) padding-box,linear-gradient(120deg,rgba(232,147,91,0.5),rgba(91,127,255,0.4)) border-box;border:1px solid transparent;border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:22px 26px;}
   .ai-dock-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px;}
   .ai-dock-title{display:flex;align-items:center;gap:10px;}
@@ -200,6 +220,7 @@
     header.topbar{padding:14px 18px;}
     .kpi-row{grid-template-columns:repeat(2,1fr);}
     .content-grid{grid-template-columns:1fr;}
+    table.stocks .col-spark{display:none;}
   }
 </style>
 </head>
@@ -256,7 +277,7 @@
         <input type="text" id="searchInput" placeholder="Buscar por ticker o nombre (ej: banco, CHILE, minería)…">
       </div>
       <table class="stocks">
-        <thead><tr><th>Nemo</th><th style="text-align:right">Precio</th><th style="text-align:right">Var. día</th><th style="text-align:right">Yield</th><th style="text-align:right">Score</th></tr></thead>
+        <thead><tr><th>Nemo</th><th class="col-spark">Tendencia (3m)</th><th style="text-align:right">Precio</th><th style="text-align:right">Var. día</th><th style="text-align:right">Yield</th><th style="text-align:right">Score</th></tr></thead>
         <tbody id="stocksBody"><tr><td colspan="5" style="text-align:center;color:var(--text-faint);padding:24px;">Cargando datos…</td></tr></tbody>
       </table>
       <div class="pagination" id="pagination"></div>
@@ -319,6 +340,21 @@
             <button class="btn btn-sm" id="btnCancelDiv" type="button">Cancelar</button>
           </div>
         </div>
+      </div>
+
+      <div class="card-shell" id="portfolioAICard" style="display:none;">
+        <div class="section-head" style="margin-bottom:10px;">
+          <div class="section-title" style="font-size:14.5px;">Análisis IA de tu cartera</div>
+          <span class="free-pill">GRATIS</span>
+        </div>
+        <div class="ai-dock-sub" id="portfolioAISub" style="margin-bottom:12px;">Analiza concentración, riesgos y sugerencias de toda tu cartera en conjunto.</div>
+        <div id="portfolioAIResult"></div>
+        <textarea class="ai-textarea" id="portfolioAITextarea" style="min-height:70px;" placeholder="1. Copiar prompt.  2. Pegarlo en Claude.ai.  3. Pegar acá la respuesta y Procesar."></textarea>
+        <div class="ai-actions">
+          <button class="btn btn-sm" id="btnCopyPortfolioPrompt" type="button">Copiar prompt</button>
+          <button class="btn btn-sm primary" id="btnProcessPortfolio" type="button">Procesar</button>
+        </div>
+        <div class="ai-status" id="portfolioAIStatus"></div>
       </div>
     </div>
   </div>
@@ -393,8 +429,7 @@ function parseAIResponse(rawText){
   const map={};
   for(const item of parsed){if(item&&item.nemo){map[item.nemo.toUpperCase()]={veredicto:item.veredicto||"",alertas:Array.isArray(item.alertas)?item.alertas:[]};}}
   return map;
-}
-function mergeAIOverlay(stocks,overlayMap){
+}function mergeAIOverlay(stocks,overlayMap){
   return stocks.map((s)=>{const overlay=overlayMap[s.nemo.toUpperCase()];return overlay?{...s,iaVeredicto:overlay.veredicto,iaAlertas:overlay.alertas}:s;});
 }
 function normalizeSearch(str){return(str||"").toString().normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();}
@@ -410,6 +445,55 @@ function paginate(items,page,pageSize){
   return{items:items.slice(start,start+pageSize),page:safePage,totalPages,totalItems:items.length};
 }
 const PAGE_SIZE=20;
+function buildSparklinePoints(prices,width,height){
+  width=width||64;height=height||24;
+  if(!prices||prices.length<2)return null;
+  const min=Math.min(...prices);const max=Math.max(...prices);const range=max-min||1;
+  const step=width/(prices.length-1);
+  return prices.map((p,i)=>{
+    const x=Math.round(i*step*100)/100;
+    const y=Math.round((height-((p-min)/range)*height)*100)/100;
+    return x+","+y;
+  }).join(" ");
+}
+function sparklineTrend(prices){
+  if(!prices||prices.length<2)return"flat";
+  if(prices[prices.length-1]>prices[0])return"up";
+  if(prices[prices.length-1]<prices[0])return"down";
+  return"flat";
+}
+
+function makeId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+const ALLOC_COLORS=["var(--blue-1)","var(--brand-1)","var(--gold)","var(--positive)","var(--text-faint)"];
+
+/* --- Análisis IA enfocado en la cartera (probado en app-logic.js) --- */
+function buildPortfolioAIPrompt(holdings,stocksByTicker){
+  const lines=holdings.map((h)=>{
+    const s=stocksByTicker[h.ticker.toUpperCase()];
+    if(!s||s.error)return`${h.ticker.toUpperCase()} | ${h.shares} acciones | costo promedio: $${h.avgCost} (sin datos de mercado disponibles hoy)`;
+    const value=s.price!=null?s.price*h.shares:null;
+    const gainPct=value!=null&&h.avgCost>0?((value-h.avgCost*h.shares)/(h.avgCost*h.shares))*100:null;
+    return`${h.ticker.toUpperCase()} | ${s.name} | sector: ${s.sector} | ${h.shares} acciones | costo promedio: $${h.avgCost} | precio actual: $${s.price} | ganancia/pérdida: ${gainPct!==null?gainPct.toFixed(1)+"%":"n/d"} | yield: ${s.dividendYieldPct??"n/d"}% | payout: ${s.payoutRatioPct??"n/d"}% | score dividendo: ${s.scoreDividendo??"n/d"} | score crecimiento: ${s.scoreCrecimiento??"n/d"}`;
+  });
+  return`Eres un analista financiero. Te paso el detalle de una cartera personal de ${holdings.length} posiciones en la Bolsa de Santiago. Analiza la cartera en su conjunto (no ticker por ticker): concentración por sector o por posición individual, nivel de riesgo general, y da sugerencias concretas de diversificación o ajuste si corresponde. Basa todo SOLO en los datos que te doy, no inventes cifras.\n\nResponde SOLO con un objeto JSON, sin texto antes ni después, con este formato exacto:\n{"resumen":"...","concentracion":"...","riesgos":["...","..."],"sugerencias":["...","..."]}\n\nCartera:\n`+lines.join("\n");
+}
+function parsePortfolioAIResponse(rawText){
+  if(!rawText||!rawText.trim())throw new Error("Pega primero la respuesta de la IA en el cuadro de texto.");
+  let cleaned=rawText.trim();
+  cleaned=cleaned.replace(/^```json\s*/i,"").replace(/^```\s*/i,"").replace(/```\s*$/i,"");
+  const start=cleaned.indexOf("{");const end=cleaned.lastIndexOf("}");
+  if(start===-1||end===-1)throw new Error("No encontré un objeto JSON en el texto pegado. Revisa que hayas copiado la respuesta completa.");
+  cleaned=cleaned.slice(start,end+1);
+  let parsed;
+  try{parsed=JSON.parse(cleaned);}catch(e){throw new Error("El JSON pegado no es válido: "+e.message);}
+  if(typeof parsed!=="object"||parsed===null||Array.isArray(parsed))throw new Error('Esperaba un objeto JSON, ej: {"resumen": "...", ...}');
+  return{
+    resumen:typeof parsed.resumen==="string"?parsed.resumen:"",
+    concentracion:typeof parsed.concentracion==="string"?parsed.concentracion:"",
+    riesgos:Array.isArray(parsed.riesgos)?parsed.riesgos:[],
+    sugerencias:Array.isArray(parsed.sugerencias)?parsed.sugerencias:[],
+  };
+}
 
 /* =========================================================
    Lógica pura de cartera (probada aparte en portfolio-logic.js)
@@ -468,13 +552,11 @@ function computePortfolioAllocation(holdings,stocksByTicker,maxSlices){
   if(restValue>0)result.push({ticker:"Otros",value:restValue,pct:(restValue/total)*100});
   return result;
 }
-function makeId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
-const ALLOC_COLORS=["var(--blue-1)","var(--brand-1)","var(--gold)","var(--positive)","var(--text-faint)"];
 
 /* =========================================================
    Glue de DOM / estado de la app
    ========================================================= */
-const state={data:null,sortMode:"dividendos",aiOverlay:{},portfolio:[],divLog:[],editingHoldingId:null,searchQuery:"",currentPage:1};
+const state={data:null,sortMode:"dividendos",aiOverlay:{},portfolio:[],divLog:[],editingHoldingId:null,searchQuery:"",currentPage:1,portfolioAI:null};
 
 function loadAIOverlayFromStorage(){
   try{
@@ -500,6 +582,15 @@ function loadDivLogFromStorage(){
   catch(e){state.divLog=[];}
 }
 function saveDivLogToStorage(){localStorage.setItem("nemo_dividend_log",JSON.stringify(state.divLog));}
+
+function loadPortfolioAIFromStorage(){
+  try{
+    const raw=localStorage.getItem("nemo_portfolio_ai");
+    if(!raw)return;
+    state.portfolioAI=JSON.parse(raw);
+  }catch(e){state.portfolioAI=null;}
+}
+function savePortfolioAIToStorage(){localStorage.setItem("nemo_portfolio_ai",JSON.stringify(state.portfolioAI));}
 
 function currentStocksWithOverlay(){
   return mergeAIOverlay(state.data.stocks,state.aiOverlay);
@@ -528,6 +619,7 @@ function render(){
   renderPortfolioCard(portfolioValue,stocksByTicker);
   renderAllocationLegend(computePortfolioAllocation(state.portfolio,stocksByTicker));
   renderDivLogCard(portfolioYtd);
+  renderPortfolioAICard();
 
   const failed=state.data.failedTickers||[];
   const noteEl=document.getElementById("tableNote");
@@ -576,7 +668,7 @@ function renderTable(sorted,heldSet){
   const tbody=document.getElementById("stocksBody");
   if(!sorted.length){
     const msg=state.searchQuery?`Sin resultados para "${escapeHtml(state.searchQuery)}".`:"No hay instrumentos con datos.";
-    tbody.innerHTML=`<tr><td colspan="5" style="text-align:center;color:var(--text-faint);padding:24px;">${msg}</td></tr>`;
+    tbody.innerHTML=`<tr><td colspan="6" style="text-align:center;color:var(--text-faint);padding:24px;">${msg}</td></tr>`;
     return;
   }
   tbody.innerHTML=sorted.map((s)=>{
@@ -590,12 +682,19 @@ function renderTable(sorted,heldSet){
     const heldBadge=heldSet&&heldSet.has(s.nemo.toUpperCase())?'<span class="held-tag">EN CARTERA</span>':"";
     const iaLine=s.iaVeredicto?`<div class="ia-verdict">💬 ${escapeHtml(s.iaVeredicto)}</div>`:"";
     const rowClass=heldSet&&heldSet.has(s.nemo.toUpperCase())?"held-row":"";
+    const points=buildSparklinePoints(s.sparkline,64,24);
+    const trend=sparklineTrend(s.sparkline);
+    const sparkColor=trend==="up"?"#3ED9A6":(trend==="down"?"#F16565":"#5B6270");
+    const sparkCell=points
+      ?`<svg class="spark" width="64" height="24" viewBox="0 0 64 24"><polyline points="${points}" fill="none" stroke="${sparkColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+      :'<span class="spark-empty">sin historial</span>';
     return `<tr class="${rowClass}">
       <td><div class="name-cell">
         <div class="avatar ${sectorAvatarClass(s.sector)}">${initials}</div>
         <div><div class="ticker-name">${s.nemo}${fondoBadge}${heldBadge} <span class="semaforo ${semaforoClass(s.scoreDividendo)}" style="margin-left:6px"></span></div>
         <div class="ticker-full">${escapeHtml(s.name)}</div>${iaLine}</div>
       </div></td>
+      <td class="col-spark spark-cell">${sparkCell}</td>
       <td class="num">$${formatCLP(s.price)}</td>
       <td class="num ${changeClass}">${s.change!==null&&s.change!==undefined?changeSign+s.change.toFixed(2)+"%":"—"}</td>
       <td class="num ${s.dividendYieldPct?"yield-pos":""}">${formatPct(s.dividendYieldPct)}</td>
@@ -703,6 +802,28 @@ function resetDivForm(){
   document.getElementById("divDate").value="";
   document.getElementById("divAmount").value="";
   document.getElementById("divFormError").textContent="";
+}
+
+/* --- Análisis IA de cartera --- */
+function renderPortfolioAICard(){
+  const card=document.getElementById("portfolioAICard");
+  card.style.display=state.portfolio.length?"block":"none";
+  if(!state.portfolio.length)return;
+
+  const resultEl=document.getElementById("portfolioAIResult");
+  if(!state.portfolioAI){resultEl.innerHTML="";return;}
+
+  const ai=state.portfolioAI;
+  const riesgosHtml=ai.riesgos.length?`<ul>${ai.riesgos.map((r)=>`<li>${escapeHtml(r)}</li>`).join("")}</ul>`:"<p>Sin alertas de riesgo.</p>";
+  const sugerenciasHtml=ai.sugerencias.length?`<ul>${ai.sugerencias.map((s)=>`<li>${escapeHtml(s)}</li>`).join("")}</ul>`:"<p>Sin sugerencias adicionales.</p>";
+
+  resultEl.innerHTML=`
+    <div class="pai-timestamp">Último análisis: ${new Date(ai.timestamp).toLocaleString("es-CL")}</div>
+    ${ai.resumen?`<div class="pai-block"><h4>Resumen</h4><p>${escapeHtml(ai.resumen)}</p></div>`:""}
+    ${ai.concentracion?`<div class="pai-block"><h4>Concentración</h4><p>${escapeHtml(ai.concentracion)}</p></div>`:""}
+    <div class="pai-block"><h4>Riesgos</h4>${riesgosHtml}</div>
+    <div class="pai-block"><h4>Sugerencias</h4>${sugerenciasHtml}</div>
+  `;
 }
 
 function populateTickerDatalist(stocks){
@@ -846,11 +967,46 @@ document.getElementById("btnProcess").addEventListener("click",()=>{
   }
 });
 
+/* --- Análisis IA de cartera --- */
+document.getElementById("btnCopyPortfolioPrompt").addEventListener("click",async()=>{
+  const stocksByTicker=indexStocksByTicker(state.data.stocks);
+  const prompt=buildPortfolioAIPrompt(state.portfolio,stocksByTicker);
+  const btn=document.getElementById("btnCopyPortfolioPrompt");
+  try{
+    await navigator.clipboard.writeText(prompt);
+    const original=btn.innerHTML;
+    btn.textContent="✓ Copiado";
+    setTimeout(()=>{btn.innerHTML=original;},1800);
+  }catch(e){
+    const statusEl=document.getElementById("portfolioAIStatus");
+    statusEl.className="ai-status err";
+    statusEl.textContent="No pude copiar automáticamente (permiso del navegador). Selecciona y copia el texto manualmente, o intenta de nuevo.";
+  }
+});
+
+document.getElementById("btnProcessPortfolio").addEventListener("click",()=>{
+  const textarea=document.getElementById("portfolioAITextarea");
+  const statusEl=document.getElementById("portfolioAIStatus");
+  try{
+    const parsed=parsePortfolioAIResponse(textarea.value);
+    state.portfolioAI={...parsed,timestamp:new Date().toISOString()};
+    savePortfolioAIToStorage();
+    render();
+    statusEl.className="ai-status ok";
+    statusEl.textContent="✓ Análisis de cartera actualizado. Se guardó en este navegador.";
+    textarea.value="";
+  }catch(e){
+    statusEl.className="ai-status err";
+    statusEl.textContent="⚠️ "+e.message;
+  }
+});
+
 /* --- Carga inicial --- */
 async function init(){
   loadAIOverlayFromStorage();
   loadPortfolioFromStorage();
   loadDivLogFromStorage();
+  loadPortfolioAIFromStorage();
   try{
     const res=await fetch("./data/stocks.json",{cache:"no-store"});
     if(!res.ok)throw new Error("HTTP "+res.status);
@@ -859,12 +1015,21 @@ async function init(){
     render();
   }catch(e){
     document.getElementById("stocksBody").innerHTML=
-      '<tr><td colspan="5" style="text-align:center;color:var(--negative);padding:24px;">No se pudo cargar data/stocks.json ('+escapeHtml(e.message)+'). '+
+      '<tr><td colspan="6" style="text-align:center;color:var(--negative);padding:24px;">No se pudo cargar data/stocks.json ('+escapeHtml(e.message)+'). '+
       'Si abriste este archivo con doble click, ábrelo en su lugar desde tu sitio publicado en GitHub Pages — los navegadores bloquean leer archivos locales así.</td></tr>';
     document.getElementById("lastUpdated").textContent="Sin datos";
   }
 }
 init();
+
+/* --- PWA: registrar el service worker (habilita instalar Nemo como app) --- */
+if("serviceWorker"in navigator){
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("./sw.js").catch((e)=>{
+      console.warn("No se pudo registrar el service worker (la app funciona igual, solo sin modo offline):",e);
+    });
+  });
+}
 </script>
 </body>
 </html>

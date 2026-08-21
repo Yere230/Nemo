@@ -28,6 +28,7 @@ const SCALE_FRACTION_FIELDS = true; // ver nota arriba
 const TICKERS_PATH = path.join(__dirname, "..", "data", "tickers.json");
 const OUTPUT_PATH = path.join(__dirname, "..", "data", "stocks.json");
 const DELAY_MS = 250; // pausa entre requests para no saturar la API
+const HISTORY_DAYS = 90; // ventana de historial para el sparkline (últimos ~3 meses)
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -132,6 +133,23 @@ async function fetchOne(entry) {
   const fd = summary.financialData || {};
   const ks = summary.defaultKeyStatistics || {};
 
+  // Historial de precios para el sparkline — se pide aparte también, con su
+  // propio try/catch, porque no queremos perder el resto de los datos del
+  // ticker si Yahoo no tiene historial disponible por alguna razón.
+  let sparkline = null;
+  try {
+    const period1 = new Date();
+    period1.setDate(period1.getDate() - HISTORY_DAYS);
+    const chartResult = await yahooFinance.chart(entry.yahoo, { period1, interval: "1d" });
+    sparkline = (chartResult.quotes || [])
+      .map((q) => q.close)
+      .filter((c) => c !== null && c !== undefined)
+      .map((c) => Math.round(c * 100) / 100);
+    if (!sparkline.length) sparkline = null;
+  } catch (err) {
+    sparkline = null; // sin historial no es un error fatal, solo no hay gráfico
+  }
+
   // Para acciones, Yahoo usa "dividendYield". Para fondos/ETF muchas veces
   // ese campo viene vacío y el dato real está en "yield" (defaultKeyStatistics
   // o summaryDetail, según el instrumento) — probamos ambos.
@@ -171,6 +189,7 @@ async function fetchOne(entry) {
     // puede volver a null apenas esa fecha pasa. Usamos el que sí tenga dato,
     // priorizando calendarEvents.
     exDividendDate: (summary.calendarEvents && summary.calendarEvents.exDividendDate) ?? sd.exDividendDate ?? null,
+    sparkline,
     scoreDividendo,
     scoreCrecimiento,
     fundamentalsWarning: summaryError, // no es un error fatal, solo un aviso
