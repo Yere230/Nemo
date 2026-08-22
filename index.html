@@ -383,7 +383,7 @@
    Lógica pura (probada aparte con Node en app-logic.js)
    ========================================================= */
 function semaforoClass(score){if(score===null||score===undefined)return"n";if(score>=7)return"g";if(score>=4)return"a";return"r";}
-const SECTOR_AVATAR={Banca:"bank",Utilities:"util",Minería:"mining",Energía:"mining",Materiales:"mining",Holding:"hold","ETF índice":"fund","Renta inmobiliaria":"fund","Renta fija":"fund"};
+const SECTOR_AVATAR={Banca:"bank",Financiero:"bank",Utilities:"util",Minería:"mining",Energía:"mining",Materiales:"mining",Holding:"hold","ETF índice":"fund","Renta inmobiliaria":"fund","Renta fija":"fund"};
 function sectorAvatarClass(sector){return SECTOR_AVATAR[sector]||"hold";}
 function formatCLP(value){if(value===null||value===undefined)return"—";return new Intl.NumberFormat("es-CL",{maximumFractionDigits:value<100?2:0}).format(value);}
 function formatPct(value){if(value===null||value===undefined)return"—";return value.toFixed(2).replace(".",",")+"%";}

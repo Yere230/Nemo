@@ -36,6 +36,13 @@
     { "nemo": "CFMITNIPSA",   "yahoo": "CFMITNIPSA.SN",   "name": "Fondo Mutuo ETF IT Now S&P IPSA",             "sector": "ETF índice",   "category": "fondo",  "ipsa": false },
     { "nemo": "CFINRENTAS",   "yahoo": "CFINRENTAS.SN",   "name": "F.I. Independencia Rentas Inmobiliarias",    "sector": "Renta inmobiliaria", "category": "fondo", "ipsa": false },
     { "nemo": "CFIETFIPSA",   "yahoo": "CFIETFIPSA.SN",   "name": "ETF Singular IPSA",                          "sector": "ETF índice",   "category": "fondo",  "ipsa": false },
-    { "nemo": "CFIETFCD",     "yahoo": "CFIETFCD.SN",     "name": "F.I. ETF Singular Chile Corta Duración",     "sector": "Renta fija",   "category": "fondo",  "ipsa": false }
+    { "nemo": "CFIETFCD",     "yahoo": "CFIETFCD.SN",     "name": "F.I. ETF Singular Chile Corta Duración",     "sector": "Renta fija",   "category": "fondo",  "ipsa": false },
+
+    { "nemo": "EMBONOR-B",    "yahoo": "EMBONOR-B.SN",    "name": "Coca-Cola Embonor S.A.",                     "sector": "Consumo",      "category": "accion", "ipsa": false },
+    { "nemo": "ENELGXCH",     "yahoo": "ENELGXCH.SN",     "name": "Enel Generación Chile S.A.",                 "sector": "Utilities",    "category": "accion", "ipsa": false },
+    { "nemo": "CFIBTGRCA",    "yahoo": "CFIBTGRCA.SN",    "name": "BTG Pactual Renta Comercial F.I.",           "sector": "Renta inmobiliaria", "category": "fondo", "ipsa": false },
+    { "nemo": "HABITAT",      "yahoo": "HABITAT.SN",      "name": "AFP Habitat S.A.",                           "sector": "Financiero",   "category": "accion", "ipsa": false },
+    { "nemo": "BICE",         "yahoo": "BICE.SN",         "name": "Bicecorp S.A.",                              "sector": "Financiero",   "category": "accion", "ipsa": false },
+    { "nemo": "LIPIGAS",      "yahoo": "LIPIGAS.SN",      "name": "Empresas Lipigas S.A.",                      "sector": "Energía",      "category": "accion", "ipsa": false }
   ]
 }
