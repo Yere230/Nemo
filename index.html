@@ -715,7 +715,14 @@ function render(){
   const portfolioYtd=computeYTDDividends(state.divLog);
   const portfolioNext=computeNextPortfolioDividend(state.portfolio,stocksByTicker);
 
-  renderKpis(computeKpis({...state.data,stocks}),{value:portfolioValue,yoc:portfolioYoc,ytd:portfolioYtd,next:portfolioNext});
+  // Cada sección se dibuja en su propio try/catch: si una tiene un bug, las
+  // demás igual se terminan de mostrar (en vez de que un error en un panel
+  // deje a medio dibujar todo lo que viene después).
+  const seguro=(nombre,fn)=>{
+    try{fn();}catch(e){console.error(`Nemo: error dibujando "${nombre}":`,e);}
+  };
+
+  seguro("kpis",()=>renderKpis(computeKpis({...state.data,stocks}),{value:portfolioValue,yoc:portfolioYoc,ytd:portfolioYtd,next:portfolioNext}));
 
   const sorted=sortStocksByColumn(stocks,state.sortColumn,state.sortDirection,state.sortMode);
   const bySector=filterBySector(sorted,state.sectorFilter);
@@ -723,17 +730,17 @@ function render(){
   const filtered=filterStocks(byFavorites,state.searchQuery);
   const paged=paginate(filtered,state.currentPage,PAGE_SIZE);
   state.currentPage=paged.page; // por si veníamos de una página que ya no existe (ej: al buscar)
-  renderTable(paged.items,heldSet);
-  renderPagination(paged);
-  renderSectorChips(stocks);
-  renderSortHeaders();
-  renderBenchmarkCard(stocksByTicker);
 
-  renderCalendar(buildDividendCalendar(stocks));
-  renderPortfolioCard(portfolioValue,stocksByTicker);
-  renderAllocationLegend(computePortfolioAllocation(state.portfolio,stocksByTicker));
-  renderDivLogCard(portfolioYtd);
-  renderPortfolioAICard();
+  seguro("tabla",()=>renderTable(paged.items,heldSet));
+  seguro("paginación",()=>renderPagination(paged));
+  seguro("chips de sector",()=>renderSectorChips(stocks));
+  seguro("headers ordenables",()=>renderSortHeaders());
+  seguro("cartera vs IPSA",()=>renderBenchmarkCard(stocksByTicker));
+  seguro("calendario",()=>renderCalendar(buildDividendCalendar(stocks)));
+  seguro("tarjeta de cartera",()=>renderPortfolioCard(portfolioValue,stocksByTicker));
+  seguro("distribución de cartera",()=>renderAllocationLegend(computePortfolioAllocation(state.portfolio,stocksByTicker)));
+  seguro("dividendos recibidos",()=>renderDivLogCard(portfolioYtd));
+  seguro("análisis IA de cartera",()=>renderPortfolioAICard());
 
   const failed=state.data.failedTickers||[];
   const noteEl=document.getElementById("tableNote");
@@ -879,16 +886,15 @@ function renderSortHeaders(){
 function renderBenchmarkCard(stocksByTicker){
   const card=document.getElementById("benchmarkCard");
   const benchmark=state.data.benchmark;
-  const hasBenchmark=benchmark&&!benchmark.error&&benchmark.sparkline;
-  if(!state.portfolio.length||!hasBenchmark){card.style.display="none";return;}
+  if(!state.portfolio.length||!benchmark||benchmark.error){card.style.display="none";return;}
   card.style.display="block";
 
-  const portfolioResult=computePortfolioSparklineReturn(state.portfolio,stocksByTicker);
-  const benchmarkReturn=computeReturnFromSparkline(benchmark.sparkline);
   const el=document.getElementById("benchmarkResult");
+  const portfolioResult=computePortfolioSparklineReturn(state.portfolio,stocksByTicker);
+  const benchmarkReturn=(benchmark.sparkline&&benchmark.sparkline.length>=2)?computeReturnFromSparkline(benchmark.sparkline):null;
 
-  if(portfolioResult.returnPct===null){
-    el.innerHTML=`<div class="bench-note">Ninguna de tus posiciones tiene historial de precio todavía para comparar. Se completa solo cuando el motor de datos junte más días.</div>`;
+  if(portfolioResult.returnPct===null||benchmarkReturn===null){
+    el.innerHTML=`<div class="bench-note">Todavía no hay suficiente historial de precios para comparar (se necesitan al menos 2 días de datos). Se completa solo con las próximas corridas del motor de datos.</div>`;
     return;
   }
 
