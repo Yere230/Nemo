@@ -197,6 +197,37 @@ async function fetchOne(entry) {
   };
 }
 
+const BENCHMARK_SYMBOL = "^IPSA"; // símbolo oficial en Yahoo Finance para el índice IPSA
+
+/** Trae el nivel actual + historial del índice IPSA, para comparar la cartera contra el benchmark. */
+async function fetchBenchmark() {
+  try {
+    const [quote, chartResult] = await Promise.all([
+      yahooFinance.quote(BENCHMARK_SYMBOL),
+      (async () => {
+        const period1 = new Date();
+        period1.setDate(period1.getDate() - HISTORY_DAYS);
+        return yahooFinance.chart(BENCHMARK_SYMBOL, { period1, interval: "1d" });
+      })(),
+    ]);
+    const sparkline = (chartResult.quotes || [])
+      .map((q) => q.close)
+      .filter((c) => c !== null && c !== undefined)
+      .map((c) => Math.round(c * 100) / 100);
+
+    return {
+      nemo: "IPSA",
+      name: "S&P IPSA (índice)",
+      price: quote.regularMarketPrice ?? null,
+      change: quote.regularMarketChangePercent ?? null,
+      sparkline: sparkline.length ? sparkline : null,
+      error: null,
+    };
+  } catch (err) {
+    return { nemo: "IPSA", name: "S&P IPSA (índice)", error: err.message || "No se pudo obtener el índice IPSA" };
+  }
+}
+
 async function main() {
   const config = JSON.parse(fs.readFileSync(TICKERS_PATH, "utf-8"));
   const results = [];
@@ -215,12 +246,17 @@ async function main() {
     await sleep(DELAY_MS);
   }
 
+  process.stdout.write("Consultando benchmark IPSA... ");
+  const benchmark = await fetchBenchmark();
+  console.log(benchmark.error ? `ERROR: ${benchmark.error}` : "OK");
+
   const output = {
     lastUpdated: new Date().toISOString(),
     source: "Yahoo Finance",
     totalTickers: config.tickers.length,
     failedCount: failed.length,
     failedTickers: failed,
+    benchmark,
     stocks: results,
   };
 
@@ -249,4 +285,5 @@ module.exports = {
   scoreDividendoFondo,
   scoreCrecimientoAccion,
   fetchOne,
+  fetchBenchmark,
 };

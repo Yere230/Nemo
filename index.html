@@ -130,6 +130,43 @@
   .pagination button:disabled{opacity:0.4;cursor:not-allowed;}
   .pagination button:not(:disabled):hover{background:var(--surface-hover);}
 
+  .chip-row{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;}
+  .chip{
+    font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;
+    padding:6px 12px;border-radius:20px;border:1px solid var(--border);
+    background:var(--surface-2);color:var(--text-dim);cursor:pointer;white-space:nowrap;
+  }
+  .chip:hover{background:var(--surface-hover);}
+  .chip.active{background:linear-gradient(135deg,var(--brand-1),var(--brand-2));color:#1a1210;border-color:transparent;font-weight:600;}
+
+  table.stocks thead th.sortable{cursor:pointer;user-select:none;}
+  table.stocks thead th.sortable:hover{color:var(--text-dim);}
+  .sort-arrow{display:inline-block;width:8px;margin-left:2px;font-size:9px;}
+  th.sort-active .sort-arrow{color:var(--brand-1);}
+
+  .star-btn{background:none;border:none;cursor:pointer;padding:0;margin-right:2px;color:var(--text-faint);display:inline-flex;vertical-align:middle;}
+  .star-btn svg{width:14px;height:14px;}
+  .star-btn.active{color:var(--gold);}
+  .star-btn.active svg{fill:var(--gold);}
+
+  .expand-btn{background:none;border:none;cursor:pointer;color:var(--text-faint);padding:2px;display:inline-flex;vertical-align:middle;margin-right:4px;}
+  .expand-btn svg{width:12px;height:12px;transition:transform 0.15s ease;}
+  .expand-btn.open svg{transform:rotate(90deg);}
+  .detail-row td{background:var(--surface-2);padding:14px 20px;}
+  .detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px 18px;}
+  .detail-item .l{font-size:9.5px;text-transform:uppercase;letter-spacing:0.4px;color:var(--text-faint);margin-bottom:2px;}
+  .detail-item .v{font-family:'IBM Plex Mono',monospace;font-size:12px;}
+
+  .backup-actions{display:flex;gap:8px;}
+  .backup-actions .btn{padding:8px 13px;font-size:11.5px;}
+
+  .bench-row{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--border);}
+  .bench-row:last-child{border-bottom:none;}
+  .bench-label{font-size:12.5px;color:var(--text-dim);}
+  .bench-value{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;}
+  .bench-value.up{color:var(--positive);} .bench-value.down{color:var(--negative);}
+  .bench-note{font-size:10.5px;color:var(--text-faint);margin-top:10px;line-height:1.5;}
+
   .side-stack{display:flex;flex-direction:column;gap:20px;}
   .cal-list{display:flex;flex-direction:column;gap:2px;}
   .cal-row{display:flex;align-items:center;gap:12px;padding:10px 4px;border-bottom:1px solid var(--border);}
@@ -238,6 +275,11 @@
       <button data-mode="crecimiento">Crecimiento</button>
       <button data-mode="mixta">Mixta</button>
     </div>
+    <div class="backup-actions">
+      <button class="btn" id="btnExportData" type="button" title="Descarga un respaldo de tu cartera, dividendos y análisis IA">⭳ Exportar</button>
+      <button class="btn" id="btnImportData" type="button" title="Restaura un respaldo previamente exportado">⭱ Importar</button>
+      <input type="file" id="importFileInput" accept="application/json" style="display:none;">
+    </div>
     <div class="status-chip"><span class="dot"></span> <span id="lastUpdated">Cargando…</span></div>
   </div>
 </header>
@@ -276,15 +318,27 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
         <input type="text" id="searchInput" placeholder="Buscar por ticker o nombre (ej: banco, CHILE, minería)…">
       </div>
+      <div class="chip-row" id="sectorChips"></div>
       <table class="stocks">
-        <thead><tr><th>Nemo</th><th class="col-spark">Tendencia (3m)</th><th style="text-align:right">Precio</th><th style="text-align:right">Var. día</th><th style="text-align:right">Yield</th><th style="text-align:right">Score</th></tr></thead>
-        <tbody id="stocksBody"><tr><td colspan="5" style="text-align:center;color:var(--text-faint);padding:24px;">Cargando datos…</td></tr></tbody>
+        <thead><tr>
+          <th class="sortable" data-col="nemo">Nemo<span class="sort-arrow"></span></th>
+          <th class="col-spark">Tendencia (3m)</th>
+          <th class="sortable" data-col="price" style="text-align:right">Precio<span class="sort-arrow"></span></th>
+          <th class="sortable" data-col="change" style="text-align:right">Var. día<span class="sort-arrow"></span></th>
+          <th class="sortable" data-col="yield" style="text-align:right">Yield<span class="sort-arrow"></span></th>
+          <th class="sortable" data-col="score" style="text-align:right">Score<span class="sort-arrow"></span></th>
+        </tr></thead>
+        <tbody id="stocksBody"><tr><td colspan="6" style="text-align:center;color:var(--text-faint);padding:24px;">Cargando datos…</td></tr></tbody>
       </table>
       <div class="pagination" id="pagination"></div>
       <div class="table-note" id="tableNote"></div>
     </div>
 
     <div class="side-stack">
+      <div class="card-shell" id="benchmarkCard" style="display:none;">
+        <div class="section-head" style="margin-bottom:14px;"><div class="section-title" style="font-size:14.5px;">Cartera vs. IPSA (3 meses)</div></div>
+        <div id="benchmarkResult"></div>
+      </div>
       <div class="card-shell">
         <div class="section-head" style="margin-bottom:16px;"><div class="section-title" style="font-size:14.5px;">Próximos dividendos</div></div>
         <div class="cal-list" id="calList"><div class="empty-note">Cargando…</div></div>
@@ -445,6 +499,55 @@ function paginate(items,page,pageSize){
   return{items:items.slice(start,start+pageSize),page:safePage,totalPages,totalItems:items.length};
 }
 const PAGE_SIZE=20;
+function getUniqueSectors(stocks){const set=new Set(stocks.filter((s)=>!s.error).map((s)=>s.sector));return[...set].sort();}
+const SECTOR_FILTER_ALL="__ALL__";
+const SECTOR_FILTER_FUNDS="__FONDOS__";
+function filterBySector(stocks,sectorFilter){
+  if(!sectorFilter||sectorFilter===SECTOR_FILTER_ALL)return stocks;
+  if(sectorFilter===SECTOR_FILTER_FUNDS)return stocks.filter((s)=>s.category==="fondo");
+  return stocks.filter((s)=>s.sector===sectorFilter);
+}
+function columnSortValue(stock,column,scoreMode){
+  switch(column){
+    case"nemo":return stock.nemo;
+    case"price":return stock.price;
+    case"change":return stock.change;
+    case"yield":return stock.dividendYieldPct;
+    case"score":
+      if(scoreMode==="crecimiento")return stock.scoreCrecimiento;
+      if(scoreMode==="mixta"){if(stock.scoreCrecimiento===null||stock.scoreCrecimiento===undefined)return stock.scoreDividendo;return(stock.scoreDividendo+stock.scoreCrecimiento)/2;}
+      return stock.scoreDividendo;
+    default:return null;
+  }
+}
+function sortStocksByColumn(stocks,column,direction,scoreMode){
+  const dir=direction==="asc"?1:-1;
+  return[...stocks].filter((s)=>!s.error).sort((a,b)=>{
+    const va=columnSortValue(a,column,scoreMode);const vb=columnSortValue(b,column,scoreMode);
+    if(va===null||va===undefined)return 1;if(vb===null||vb===undefined)return-1;
+    if(typeof va==="string")return dir*va.localeCompare(vb);
+    return dir*(va-vb);
+  });
+}
+function computeReturnFromSparkline(sparkline){
+  if(!sparkline||sparkline.length<2)return null;
+  const first=sparkline[0];const last=sparkline[sparkline.length-1];
+  if(!first)return null;
+  return((last-first)/first)*100;
+}
+function computePortfolioSparklineReturn(holdings,stocksByTicker){
+  let weightedReturnSum=0,totalWeight=0;const sinHistorial=[];
+  for(const h of holdings){
+    const stock=stocksByTicker[h.ticker.toUpperCase()];
+    if(!stock||stock.error||stock.price===null)continue;
+    const ret=computeReturnFromSparkline(stock.sparkline);
+    const weight=stock.price*h.shares;
+    if(ret===null){sinHistorial.push(h.ticker);continue;}
+    weightedReturnSum+=ret*weight;totalWeight+=weight;
+  }
+  if(totalWeight===0)return{returnPct:null,sinHistorial};
+  return{returnPct:weightedReturnSum/totalWeight,sinHistorial};
+}
 function buildSparklinePoints(prices,width,height){
   width=width||64;height=height||24;
   if(!prices||prices.length<2)return null;
@@ -556,7 +659,7 @@ function computePortfolioAllocation(holdings,stocksByTicker,maxSlices){
 /* =========================================================
    Glue de DOM / estado de la app
    ========================================================= */
-const state={data:null,sortMode:"dividendos",aiOverlay:{},portfolio:[],divLog:[],editingHoldingId:null,searchQuery:"",currentPage:1,portfolioAI:null};
+const state={data:null,sortMode:"dividendos",aiOverlay:{},portfolio:[],divLog:[],editingHoldingId:null,searchQuery:"",currentPage:1,portfolioAI:null,sectorFilter:SECTOR_FILTER_ALL,sortColumn:"score",sortDirection:"desc",watchlist:[],showFavoritesOnly:false,expandedTickers:new Set()};
 
 function loadAIOverlayFromStorage(){
   try{
@@ -592,6 +695,12 @@ function loadPortfolioAIFromStorage(){
 }
 function savePortfolioAIToStorage(){localStorage.setItem("nemo_portfolio_ai",JSON.stringify(state.portfolioAI));}
 
+function loadWatchlistFromStorage(){
+  try{const raw=localStorage.getItem("nemo_watchlist");state.watchlist=raw?JSON.parse(raw):[];}
+  catch(e){state.watchlist=[];}
+}
+function saveWatchlistToStorage(){localStorage.setItem("nemo_watchlist",JSON.stringify(state.watchlist));}
+
 function currentStocksWithOverlay(){
   return mergeAIOverlay(state.data.stocks,state.aiOverlay);
 }
@@ -608,12 +717,17 @@ function render(){
 
   renderKpis(computeKpis({...state.data,stocks}),{value:portfolioValue,yoc:portfolioYoc,ytd:portfolioYtd,next:portfolioNext});
 
-  const sorted=sortStocks(stocks,state.sortMode);
-  const filtered=filterStocks(sorted,state.searchQuery);
+  const sorted=sortStocksByColumn(stocks,state.sortColumn,state.sortDirection,state.sortMode);
+  const bySector=filterBySector(sorted,state.sectorFilter);
+  const byFavorites=state.showFavoritesOnly?bySector.filter((s)=>state.watchlist.includes(s.nemo.toUpperCase())):bySector;
+  const filtered=filterStocks(byFavorites,state.searchQuery);
   const paged=paginate(filtered,state.currentPage,PAGE_SIZE);
   state.currentPage=paged.page; // por si veníamos de una página que ya no existe (ej: al buscar)
   renderTable(paged.items,heldSet);
   renderPagination(paged);
+  renderSectorChips(stocks);
+  renderSortHeaders();
+  renderBenchmarkCard(stocksByTicker);
 
   renderCalendar(buildDividendCalendar(stocks));
   renderPortfolioCard(portfolioValue,stocksByTicker);
@@ -688,8 +802,13 @@ function renderTable(sorted,heldSet){
     const sparkCell=points
       ?`<svg class="spark" width="64" height="24" viewBox="0 0 64 24"><polyline points="${points}" fill="none" stroke="${sparkColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
       :'<span class="spark-empty">sin historial</span>';
-    return `<tr class="${rowClass}">
+    const isFav=state.watchlist.includes(s.nemo.toUpperCase());
+    const isOpen=state.expandedTickers.has(s.nemo.toUpperCase());
+    const starBtn=`<button class="star-btn ${isFav?"active":""}" data-star="${s.nemo}" title="Favorito" type="button"><svg viewBox="0 0 24 24" fill="${isFav?"currentColor":"none"}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>`;
+    const expandBtn=`<button class="expand-btn ${isOpen?"open":""}" data-expand="${s.nemo}" title="Más detalle" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>`;
+    const row=`<tr class="${rowClass}">
       <td><div class="name-cell">
+        ${expandBtn}${starBtn}
         <div class="avatar ${sectorAvatarClass(s.sector)}">${initials}</div>
         <div><div class="ticker-name">${s.nemo}${fondoBadge}${heldBadge} <span class="semaforo ${semaforoClass(s.scoreDividendo)}" style="margin-left:6px"></span></div>
         <div class="ticker-full">${escapeHtml(s.name)}</div>${iaLine}</div>
@@ -700,6 +819,17 @@ function renderTable(sorted,heldSet){
       <td class="num ${s.dividendYieldPct?"yield-pos":""}">${formatPct(s.dividendYieldPct)}</td>
       <td class="num"><div class="score-bar-wrap"><div class="score-track"><div class="score-fill" style="width:${scorePct}%"></div></div><span class="score-num">${scoreDisplay}</span></div></td>
     </tr>`;
+    const detailRow=isOpen?`<tr class="detail-row"><td colspan="6"><div class="detail-grid">
+        <div class="detail-item"><div class="l">Rango 52 sem.</div><div class="v">$${formatCLP(s.fiftyTwoWeekLow)} – $${formatCLP(s.fiftyTwoWeekHigh)}</div></div>
+        <div class="detail-item"><div class="l">Payout ratio</div><div class="v">${formatPct(s.payoutRatioPct)}</div></div>
+        <div class="detail-item"><div class="l">Deuda/Patrimonio</div><div class="v">${s.debtToEquity!==null&&s.debtToEquity!==undefined?s.debtToEquity.toFixed(1):"—"}</div></div>
+        <div class="detail-item"><div class="l">ROE</div><div class="v">${formatPct(s.roePct)}</div></div>
+        <div class="detail-item"><div class="l">Crec. utilidades</div><div class="v">${formatPct(s.earningsGrowthPct)}</div></div>
+        <div class="detail-item"><div class="l">Crec. ingresos</div><div class="v">${formatPct(s.revenueGrowthPct)}</div></div>
+        <div class="detail-item"><div class="l">Sector</div><div class="v">${escapeHtml(s.sector)}</div></div>
+        <div class="detail-item"><div class="l">Próx. dividendo</div><div class="v">${s.exDividendDate?new Date(s.exDividendDate).toLocaleDateString("es-CL"):"sin fecha"}</div></div>
+      </div></td></tr>`:"";
+    return row+detailRow;
   }).join("");
 }
 
@@ -716,6 +846,62 @@ function renderPagination(paged){
   const nextBtn=document.getElementById("btnNextPage");
   if(prevBtn)prevBtn.addEventListener("click",()=>{state.currentPage=Math.max(1,paged.page-1);render();});
   if(nextBtn)nextBtn.addEventListener("click",()=>{state.currentPage=Math.min(paged.totalPages,paged.page+1);render();});
+}
+
+function renderSectorChips(stocks){
+  const el=document.getElementById("sectorChips");
+  const sectors=getUniqueSectors(stocks);
+  const hasFondos=stocks.some((s)=>s.category==="fondo");
+  const chips=[{value:SECTOR_FILTER_ALL,label:"Todos"}];
+  if(hasFondos)chips.push({value:SECTOR_FILTER_FUNDS,label:"Fondos"});
+  for(const sec of sectors)chips.push({value:sec,label:sec});
+
+  el.innerHTML=chips.map((c)=>
+    `<button class="chip ${state.sectorFilter===c.value?"active":""}" data-sector="${escapeHtml(c.value)}" type="button">${escapeHtml(c.label)}</button>`
+  ).join("")+
+    `<button class="chip ${state.showFavoritesOnly?"active":""}" id="chipFavoritos" type="button">★ Favoritos</button>`;
+}
+
+function renderSortHeaders(){
+  document.querySelectorAll("th.sortable").forEach((th)=>{
+    const col=th.dataset.col;
+    const arrow=th.querySelector(".sort-arrow");
+    if(col===state.sortColumn){
+      th.classList.add("sort-active");
+      arrow.textContent=state.sortDirection==="asc"?"▲":"▼";
+    }else{
+      th.classList.remove("sort-active");
+      arrow.textContent="";
+    }
+  });
+}
+
+function renderBenchmarkCard(stocksByTicker){
+  const card=document.getElementById("benchmarkCard");
+  const benchmark=state.data.benchmark;
+  const hasBenchmark=benchmark&&!benchmark.error&&benchmark.sparkline;
+  if(!state.portfolio.length||!hasBenchmark){card.style.display="none";return;}
+  card.style.display="block";
+
+  const portfolioResult=computePortfolioSparklineReturn(state.portfolio,stocksByTicker);
+  const benchmarkReturn=computeReturnFromSparkline(benchmark.sparkline);
+  const el=document.getElementById("benchmarkResult");
+
+  if(portfolioResult.returnPct===null){
+    el.innerHTML=`<div class="bench-note">Ninguna de tus posiciones tiene historial de precio todavía para comparar. Se completa solo cuando el motor de datos junte más días.</div>`;
+    return;
+  }
+
+  const pClass=portfolioResult.returnPct>=0?"up":"down";
+  const bClass=benchmarkReturn>=0?"up":"down";
+  const diff=portfolioResult.returnPct-benchmarkReturn;
+  const diffTxt=diff>=0?`+${diff.toFixed(1)} pts sobre el IPSA`:`${diff.toFixed(1)} pts bajo el IPSA`;
+
+  el.innerHTML=`
+    <div class="bench-row"><span class="bench-label">Tu cartera</span><span class="bench-value ${pClass}">${portfolioResult.returnPct>=0?"+":""}${portfolioResult.returnPct.toFixed(1)}%</span></div>
+    <div class="bench-row"><span class="bench-label">IPSA (índice)</span><span class="bench-value ${bClass}">${benchmarkReturn>=0?"+":""}${benchmarkReturn.toFixed(1)}%</span></div>
+    <div class="bench-note">${diffTxt} en los últimos ~3 meses. Compara el mismo período para ambos (no tu costo de compra), y asume que no cambiaste la cantidad de acciones en esa ventana.${portfolioResult.sinHistorial.length?" Sin historial todavía: "+portfolioResult.sinHistorial.join(", ")+".":""}</div>
+  `;
 }
 
 function renderCalendar(items){
@@ -838,6 +1024,23 @@ document.getElementById("segmented").addEventListener("click",(e)=>{
   document.querySelectorAll("#segmented button").forEach((b)=>b.classList.remove("active"));
   btn.classList.add("active");
   state.sortMode=btn.dataset.mode;
+  state.sortColumn="score";
+  state.sortDirection="desc";
+  state.currentPage=1;
+  render();
+});
+
+/* --- Ordenar por columna (click en el encabezado) --- */
+document.querySelector("table.stocks thead").addEventListener("click",(e)=>{
+  const th=e.target.closest("th.sortable");
+  if(!th)return;
+  const col=th.dataset.col;
+  if(state.sortColumn===col){
+    state.sortDirection=state.sortDirection==="asc"?"desc":"asc";
+  }else{
+    state.sortColumn=col;
+    state.sortDirection=col==="nemo"?"asc":"desc";
+  }
   state.currentPage=1;
   render();
 });
@@ -847,6 +1050,98 @@ document.getElementById("searchInput").addEventListener("input",(e)=>{
   state.searchQuery=e.target.value;
   state.currentPage=1;
   render();
+});
+
+/* --- Chips de sector y favoritos --- */
+document.getElementById("sectorChips").addEventListener("click",(e)=>{
+  const sectorBtn=e.target.closest("[data-sector]");
+  const favBtn=e.target.closest("#chipFavoritos");
+  if(sectorBtn){
+    state.sectorFilter=sectorBtn.dataset.sector;
+    state.currentPage=1;
+    render();
+  }else if(favBtn){
+    state.showFavoritesOnly=!state.showFavoritesOnly;
+    state.currentPage=1;
+    render();
+  }
+});
+
+/* --- Favoritos (estrella) y fila expandible, delegados sobre la tabla --- */
+document.getElementById("stocksBody").addEventListener("click",(e)=>{
+  const starBtn=e.target.closest("[data-star]");
+  const expandBtn=e.target.closest("[data-expand]");
+  if(starBtn){
+    const nemo=starBtn.dataset.star.toUpperCase();
+    if(state.watchlist.includes(nemo)){
+      state.watchlist=state.watchlist.filter((t)=>t!==nemo);
+    }else{
+      state.watchlist=[...state.watchlist,nemo];
+    }
+    saveWatchlistToStorage();
+    render();
+  }else if(expandBtn){
+    const nemo=expandBtn.dataset.expand.toUpperCase();
+    if(state.expandedTickers.has(nemo)){
+      state.expandedTickers.delete(nemo);
+    }else{
+      state.expandedTickers.add(nemo);
+    }
+    render();
+  }
+});
+
+/* --- Exportar / importar todos los datos (respaldo) --- */
+const BACKUP_KEYS=["nemo_portfolio","nemo_dividend_log","nemo_ai_overlay","nemo_portfolio_ai","nemo_watchlist"];
+
+document.getElementById("btnExportData").addEventListener("click",()=>{
+  const backup={exportedAt:new Date().toISOString(),data:{}};
+  for(const key of BACKUP_KEYS){
+    const raw=localStorage.getItem(key);
+    if(raw!==null)backup.data[key]=raw;
+  }
+  const blob=new Blob([JSON.stringify(backup,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  const fecha=new Date().toISOString().slice(0,10);
+  a.href=url;
+  a.download=`nemo-backup-${fecha}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+
+document.getElementById("btnImportData").addEventListener("click",()=>{
+  document.getElementById("importFileInput").click();
+});
+
+document.getElementById("importFileInput").addEventListener("change",(e)=>{
+  const file=e.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const parsed=JSON.parse(reader.result);
+      if(!parsed||typeof parsed.data!=="object")throw new Error("El archivo no tiene el formato esperado de un respaldo de Nemo.");
+      const confirmado=confirm("Esto va a reemplazar tu cartera, dividendos, favoritos y análisis IA actuales por los del respaldo. ¿Continuar?");
+      if(!confirmado)return;
+      for(const key of BACKUP_KEYS){
+        if(parsed.data[key]!==undefined)localStorage.setItem(key,parsed.data[key]);
+      }
+      loadPortfolioFromStorage();
+      loadDivLogFromStorage();
+      loadAIOverlayFromStorage();
+      loadPortfolioAIFromStorage();
+      loadWatchlistFromStorage();
+      render();
+      alert("Respaldo importado correctamente.");
+    }catch(err){
+      alert("No se pudo importar el archivo: "+err.message);
+    }
+    e.target.value="";
+  };
+  reader.readAsText(file);
 });
 
 /* --- Formulario de posiciones (agregar/editar) --- */
@@ -1007,6 +1302,7 @@ async function init(){
   loadPortfolioFromStorage();
   loadDivLogFromStorage();
   loadPortfolioAIFromStorage();
+  loadWatchlistFromStorage();
   try{
     const res=await fetch("./data/stocks.json",{cache:"no-store"});
     if(!res.ok)throw new Error("HTTP "+res.status);
