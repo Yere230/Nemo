@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-17T23:14:16.380Z",
+  "lastUpdated": "2026-09-18T22:55:19.930Z",
   "source": "Yahoo Finance",
   "totalTickers": 41,
   "failedCount": 0,
@@ -34,7 +34,6 @@
       "fiftyTwoWeekHigh": 400,
       "exDividendDate": "2026-04-27T00:00:00.000Z",
       "sparkline": [
-        332,
         335.45,
         336,
         330.52,
@@ -95,7 +94,7 @@
         332.4,
         332.4,
         332.4,
-        335
+        332.4
       ],
       "scoreDividendo": 6.2,
       "scoreCrecimiento": 3.1,
@@ -121,7 +120,6 @@
       "fiftyTwoWeekHigh": 4900,
       "exDividendDate": "2026-08-24T00:00:00.000Z",
       "sparkline": [
-        4480,
         4550,
         4540,
         4505.1,
@@ -182,7 +180,7 @@
         4699.9,
         4699.9,
         4699.9,
-        4900
+        4699.9
       ],
       "scoreDividendo": 6.3,
       "scoreCrecimiento": 5.9,
@@ -208,7 +206,6 @@
       "fiftyTwoWeekHigh": 67390,
       "exDividendDate": "2026-04-02T00:00:00.000Z",
       "sparkline": [
-        59000,
         60199,
         59938,
         59000,
@@ -269,7 +266,7 @@
         62502,
         62502,
         62502,
-        65600
+        62502
       ],
       "scoreDividendo": 4.1,
       "scoreCrecimiento": 6.9,
@@ -295,7 +292,6 @@
       "fiftyTwoWeekHigh": 83,
       "exDividendDate": "2026-04-30T00:00:00.000Z",
       "sparkline": [
-        74,
         74.93,
         73,
         72.01,
@@ -356,7 +352,7 @@
         77,
         77,
         77,
-        81.82
+        77
       ],
       "scoreDividendo": 6.2,
       "scoreCrecimiento": 7.7,
@@ -382,7 +378,6 @@
       "fiftyTwoWeekHigh": 8680,
       "exDividendDate": "2023-04-20T00:00:00.000Z",
       "sparkline": [
-        6533.3,
         6611.7,
         6507.7,
         6540,
@@ -443,7 +438,7 @@
         6313.3,
         6313.3,
         6313.3,
-        5390
+        6313.3
       ],
       "scoreDividendo": 2.8,
       "scoreCrecimiento": 3.9,
@@ -469,7 +464,6 @@
       "fiftyTwoWeekHigh": 6598.3,
       "exDividendDate": "2026-04-20T00:00:00.000Z",
       "sparkline": [
-        5150,
         5240,
         5181.4,
         5150,
@@ -530,7 +524,7 @@
         5218,
         5218,
         5218,
-        5330
+        5218
       ],
       "scoreDividendo": 5.9,
       "scoreCrecimiento": 4.3,
@@ -556,7 +550,6 @@
       "fiftyTwoWeekHigh": 2799.9,
       "exDividendDate": "2026-05-07T00:00:00.000Z",
       "sparkline": [
-        2439.9,
         2444.9,
         2401,
         2395.9,
@@ -617,7 +610,7 @@
         2210,
         2210,
         2210,
-        2240
+        2210
       ],
       "scoreDividendo": 7.1,
       "scoreCrecimiento": 5.9,
@@ -643,7 +636,6 @@
       "fiftyTwoWeekHigh": 3238,
       "exDividendDate": "2026-05-08T00:00:00.000Z",
       "sparkline": [
-        2116,
         2160,
         2159,
         2111,
@@ -704,7 +696,7 @@
         1995,
         1995,
         1995,
-        2090
+        1995
       ],
       "scoreDividendo": 5.7,
       "scoreCrecimiento": 3.8,
@@ -730,7 +722,6 @@
       "fiftyTwoWeekHigh": 200.68,
       "exDividendDate": "2026-03-20T00:00:00.000Z",
       "sparkline": [
-        180.01,
         182,
         178.1,
         175.02,
@@ -791,7 +782,7 @@
         188.5,
         188.5,
         188.5,
-        197.9
+        188.5
       ],
       "scoreDividendo": 5.1,
       "scoreCrecimiento": 6.9,
@@ -817,7 +808,6 @@
       "fiftyTwoWeekHigh": 1501.1,
       "exDividendDate": "2026-05-07T00:00:00.000Z",
       "sparkline": [
-        1041,
         1048,
         1043,
         1035.6,
@@ -878,7 +868,7 @@
         1070,
         1070,
         1070,
-        957
+        1070
       ],
       "scoreDividendo": 4.1,
       "scoreCrecimiento": 1.6,
@@ -904,7 +894,6 @@
       "fiftyTwoWeekHigh": 156.51,
       "exDividendDate": "2026-05-11T00:00:00.000Z",
       "sparkline": [
-        131.98,
         133.04,
         131.84,
         130,
@@ -965,7 +954,7 @@
         135.29,
         135.29,
         135.29,
-        148
+        135.29
       ],
       "scoreDividendo": 6.5,
       "scoreCrecimiento": 3.5,
@@ -991,7 +980,6 @@
       "fiftyTwoWeekHigh": 1148.8,
       "exDividendDate": "2026-09-25T00:00:00.000Z",
       "sparkline": [
-        863,
         869.86,
         862.16,
         853.3,
@@ -1052,7 +1040,7 @@
         852.33,
         852.33,
         852.33,
-        930
+        852.33
       ],
       "scoreDividendo": 7,
       "scoreCrecimiento": 4.3,
@@ -1078,7 +1066,6 @@
       "fiftyTwoWeekHigh": 7949,
       "exDividendDate": "2026-05-08T00:00:00.000Z",
       "sparkline": [
-        5860,
         5980,
         5967,
         5830,
@@ -1139,7 +1126,7 @@
         6249.6,
         6249.6,
         6249.6,
-        6430
+        6249.6
       ],
       "scoreDividendo": 4.8,
       "scoreCrecimiento": 7.1,
@@ -1165,7 +1152,6 @@
       "fiftyTwoWeekHigh": 1949.9,
       "exDividendDate": "2026-05-22T00:00:00.000Z",
       "sparkline": [
-        1780,
         1825,
         1824,
         1800,
@@ -1226,7 +1212,7 @@
         1807,
         1807,
         1807,
-        1855
+        1807
       ],
       "scoreDividendo": 4.1,
       "scoreCrecimiento": 3.5,
@@ -1252,7 +1238,6 @@
       "fiftyTwoWeekHigh": 105.23,
       "exDividendDate": "2026-05-15T00:00:00.000Z",
       "sparkline": [
-        82.51,
         83.4,
         82.8,
         81.76,
@@ -1313,7 +1298,7 @@
         84.04,
         84.04,
         84.04,
-        90
+        84.04
       ],
       "scoreDividendo": 5.6,
       "scoreCrecimiento": 6.3,
@@ -1330,7 +1315,7 @@
       "currency": "CLP",
       "change": 0.33226267,
       "dividendYieldPct": 4.29,
-      "payoutRatioPct": 47.99,
+      "payoutRatioPct": 48.46,
       "debtToEquity": 66.905,
       "earningsGrowthPct": 53.7,
       "revenueGrowthPct": -11.3,
@@ -1339,7 +1324,6 @@
       "fiftyTwoWeekHigh": 84,
       "exDividendDate": "2026-05-15T00:00:00.000Z",
       "sparkline": [
-        82.2,
         82,
         81.36,
         78,
@@ -1400,7 +1384,7 @@
         81.01,
         81.01,
         81.01,
-        81.53
+        81.01
       ],
       "scoreDividendo": 6.7,
       "scoreCrecimiento": 6.1,
@@ -1426,7 +1410,6 @@
       "fiftyTwoWeekHigh": 5250,
       "exDividendDate": "2026-04-27T00:00:00.000Z",
       "sparkline": [
-        3540,
         3656.9,
         3555,
         3535,
@@ -1487,7 +1470,7 @@
         3643,
         3643,
         3643,
-        3977
+        3643
       ],
       "scoreDividendo": 6.8,
       "scoreCrecimiento": 6.2,
@@ -1513,7 +1496,6 @@
       "fiftyTwoWeekHigh": 6948.5,
       "exDividendDate": "2026-03-27T00:00:00.000Z",
       "sparkline": [
-        6065,
         5899,
         5686.1,
         5560,
@@ -1574,7 +1556,7 @@
         5835,
         5835,
         5835,
-        6599
+        5835
       ],
       "scoreDividendo": 4.4,
       "scoreCrecimiento": 4.8,
@@ -1600,7 +1582,6 @@
       "fiftyTwoWeekHigh": 1150,
       "exDividendDate": "2026-04-30T00:00:00.000Z",
       "sparkline": [
-        910.05,
         918.06,
         908.14,
         901.51,
@@ -1661,7 +1642,7 @@
         921.89,
         921.89,
         921.89,
-        955.57
+        921.89
       ],
       "scoreDividendo": 7.1,
       "scoreCrecimiento": 2.8,
@@ -1687,7 +1668,6 @@
       "fiftyTwoWeekHigh": 25000,
       "exDividendDate": "2026-05-22T00:00:00.000Z",
       "sparkline": [
-        21684,
         22000,
         21900,
         21870,
@@ -1748,7 +1728,7 @@
         21450,
         21450,
         21450,
-        25000
+        21450
       ],
       "scoreDividendo": 3.9,
       "scoreCrecimiento": 8.1,
@@ -1774,7 +1754,6 @@
       "fiftyTwoWeekHigh": 25887,
       "exDividendDate": "2026-04-15T00:00:00.000Z",
       "sparkline": [
-        17670,
         18000,
         17900,
         18000,
@@ -1835,7 +1814,7 @@
         20678,
         20678,
         20678,
-        24200
+        20678
       ],
       "scoreDividendo": 6.7,
       "scoreCrecimiento": 5.4,
@@ -1861,7 +1840,6 @@
       "fiftyTwoWeekHigh": 30,
       "exDividendDate": "2026-05-08T00:00:00.000Z",
       "sparkline": [
-        25.25,
         25.14,
         25.35,
         26.11,
@@ -1922,7 +1900,7 @@
         24.69,
         24.69,
         24.69,
-        24.78
+        24.69
       ],
       "scoreDividendo": 3.5,
       "scoreCrecimiento": 5.5,
@@ -1948,7 +1926,6 @@
       "fiftyTwoWeekHigh": 4700,
       "exDividendDate": "2026-09-10T00:00:00.000Z",
       "sparkline": [
-        3820,
         3731.8,
         3800,
         3830,
@@ -2009,7 +1986,7 @@
         3950,
         3950,
         3950,
-        3900
+        3950
       ],
       "scoreDividendo": 5.2,
       "scoreCrecimiento": 4.5,
@@ -2035,7 +2012,6 @@
       "fiftyTwoWeekHigh": 4596.3,
       "exDividendDate": "2026-04-24T00:00:00.000Z",
       "sparkline": [
-        3900,
         3950,
         3851.5,
         3800,
@@ -2096,7 +2072,7 @@
         4039.9,
         4039.9,
         4039.9,
-        3900
+        4039.9
       ],
       "scoreDividendo": 4.3,
       "scoreCrecimiento": 3.6,
@@ -2122,7 +2098,6 @@
       "fiftyTwoWeekHigh": 490,
       "exDividendDate": "2026-05-22T00:00:00.000Z",
       "sparkline": [
-        392.87,
         394.58,
         390,
         385.5,
@@ -2183,7 +2158,7 @@
         382.96,
         382.96,
         382.96,
-        442
+        382.96
       ],
       "scoreDividendo": 3.7,
       "scoreCrecimiento": 6.6,
@@ -2209,7 +2184,6 @@
       "fiftyTwoWeekHigh": 1499.9,
       "exDividendDate": "2026-04-20T00:00:00.000Z",
       "sparkline": [
-        1290,
         1296,
         1279.8,
         1271,
@@ -2270,7 +2244,7 @@
         1249,
         1249,
         1249,
-        1315
+        1249
       ],
       "scoreDividendo": 5.2,
       "scoreCrecimiento": 2.1,
@@ -2296,7 +2270,6 @@
       "fiftyTwoWeekHigh": 169.5,
       "exDividendDate": "2026-08-28T00:00:00.000Z",
       "sparkline": [
-        134.47,
         135.99,
         131.54,
         131,
@@ -2357,7 +2330,7 @@
         127.9,
         127.9,
         127.9,
-        117.5
+        127.9
       ],
       "scoreDividendo": 4.8,
       "scoreCrecimiento": 2,
@@ -2383,7 +2356,6 @@
       "fiftyTwoWeekHigh": 383.7,
       "exDividendDate": "2026-04-20T00:00:00.000Z",
       "sparkline": [
-        280.64,
         280.64,
         280.06,
         284.92,
@@ -2444,7 +2416,7 @@
         301.81,
         301.81,
         301.81,
-        295
+        301.81
       ],
       "scoreDividendo": 4.5,
       "scoreCrecimiento": 4.1,
@@ -2470,7 +2442,6 @@
       "fiftyTwoWeekHigh": 86900,
       "exDividendDate": "2026-09-07T00:00:00.000Z",
       "sparkline": [
-        73200,
         71155,
         70150,
         69500,
@@ -2531,7 +2502,7 @@
         65450,
         65450,
         65450,
-        68708
+        65450
       ],
       "scoreDividendo": 5,
       "scoreCrecimiento": 8.9,
@@ -2557,7 +2528,6 @@
       "fiftyTwoWeekHigh": 54.8,
       "exDividendDate": "2026-06-01T00:00:00.000Z",
       "sparkline": [
-        43.38,
         43.41,
         42.84,
         42.85,
@@ -2618,7 +2588,7 @@
         46.51,
         46.51,
         46.51,
-        48.3
+        46.51
       ],
       "scoreDividendo": 7.2,
       "scoreCrecimiento": 3.5,
@@ -2644,7 +2614,6 @@
       "fiftyTwoWeekHigh": 4777.2,
       "exDividendDate": "2026-05-11T00:00:00.000Z",
       "sparkline": [
-        3880,
         3871.7,
         3880,
         3880.1,
@@ -2705,7 +2674,7 @@
         4279,
         4279,
         4279,
-        4620
+        4279
       ],
       "scoreDividendo": 6.2,
       "scoreCrecimiento": 4.6,
@@ -2731,7 +2700,6 @@
       "fiftyTwoWeekHigh": 5588.4,
       "exDividendDate": null,
       "sparkline": [
-        5028.8,
         5049.8,
         4995.3,
         4978.8,
@@ -2793,7 +2761,7 @@
         5035.4,
         5035.4,
         5035.4,
-        5219.9
+        5035.4
       ],
       "scoreDividendo": 0,
       "scoreCrecimiento": null,
@@ -2819,7 +2787,6 @@
       "fiftyTwoWeekHigh": 2340,
       "exDividendDate": null,
       "sparkline": [
-        2203.95,
         2199.94,
         2199,
         2201.12,
@@ -2881,7 +2848,7 @@
         2183.56,
         2183.56,
         2183.56,
-        2120
+        2183.56
       ],
       "scoreDividendo": 0,
       "scoreCrecimiento": null,
@@ -2933,7 +2900,6 @@
       "fiftyTwoWeekHigh": 1300,
       "exDividendDate": null,
       "sparkline": [
-        1261,
         1261.4,
         1261.3,
         1261.2,
@@ -3024,7 +2990,6 @@
         1580,
         1580,
         1580,
-        1580,
         1600,
         1600,
         1600.1,
@@ -3039,6 +3004,7 @@
         1585.7,
         1586,
         1586,
+        1570,
         1570,
         1570,
         1570,
@@ -3107,7 +3073,6 @@
       "fiftyTwoWeekHigh": 598.5,
       "exDividendDate": "2026-05-11T00:00:00.000Z",
       "sparkline": [
-        532.3,
         537.22,
         537.31,
         535.17,
@@ -3168,7 +3133,7 @@
         552.38,
         552.38,
         552.38,
-        592
+        552.38
       ],
       "scoreDividendo": 8.5,
       "scoreCrecimiento": 4.9,
@@ -3194,7 +3159,6 @@
       "fiftyTwoWeekHigh": 28000,
       "exDividendDate": null,
       "sparkline": [
-        25364.02,
         25000,
         25000,
         25001,
@@ -3282,7 +3246,6 @@
       "fiftyTwoWeekHigh": 1600,
       "exDividendDate": "2026-05-11T00:00:00.000Z",
       "sparkline": [
-        1325.2,
         1330.6,
         1317.5,
         1300.4,
@@ -3343,7 +3306,7 @@
         1267,
         1267,
         1267,
-        1391
+        1267
       ],
       "scoreDividendo": 8,
       "scoreCrecimiento": 7.7,
@@ -3369,7 +3332,6 @@
       "fiftyTwoWeekHigh": 450,
       "exDividendDate": "2026-05-08T00:00:00.000Z",
       "sparkline": [
-        377.42,
         378.97,
         377.41,
         380,
@@ -3430,7 +3392,7 @@
         375.23,
         375.23,
         375.23,
-        421.55
+        375.23
       ],
       "scoreDividendo": 3.2,
       "scoreCrecimiento": 5.5,
@@ -3456,7 +3418,6 @@
       "fiftyTwoWeekHigh": 9500,
       "exDividendDate": "2026-09-16T00:00:00.000Z",
       "sparkline": [
-        7927.8,
         8000,
         8004.4,
         8158.2,
@@ -3517,7 +3478,7 @@
         8555.1,
         8555.1,
         8555.1,
-        8850
+        8555.1
       ],
       "scoreDividendo": 6.4,
       "scoreCrecimiento": 6.7,
